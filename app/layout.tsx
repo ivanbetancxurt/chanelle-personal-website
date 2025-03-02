@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from "next/font/google"; //! here for future reference
+import { Outfit } from "next/font/google"; //! here for future reference
 import './globals.css';
 import NavBar from "@/components/navbar";
 import { ContactBar } from '@/components/contactbar';
+
+export const outfit = Outfit({
+    subsets: ['latin'],
+    variable: '--font-outfit',
+    display: 'swap'
+})
 
 export const metadata: Metadata = {
     title: 'Chanelle Jaeger',
@@ -15,7 +21,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang='en' className={outfit.className}>
             <body className='flex flex-col'>
                 <header className='flex justify-center pt-5'>
                     <NavBar />
