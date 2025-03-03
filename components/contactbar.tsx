@@ -15,7 +15,7 @@ export function ContactBar() {
                     />
                     <ContactItem 
                         link='#'
-                        Icon={<FaEnvelope size={20} className='absolute top-1/2 -translate-y-1/2 left-[-22px]' />}
+                        Icon={<FaEnvelope color='#583d81' size={20} className='absolute top-1/2 -translate-y-1/2 left-[-22px]' />}
                         text='cjaeger27@amherst.edu'
                         isLink={false}
                     />

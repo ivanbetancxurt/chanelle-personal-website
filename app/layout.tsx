@@ -29,7 +29,7 @@ export default function RootLayout({
                 <main className='py-5 px-10 flex justify-center '>
                     {children}
                 </main>
-                <footer className='flex justify-center'>
+                <footer className='flex justify-center w-full'>
                     <ContactBar />
                 </footer>
             </body>
