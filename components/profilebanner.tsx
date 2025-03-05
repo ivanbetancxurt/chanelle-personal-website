@@ -4,7 +4,7 @@ import { ReactTyped } from 'react-typed';
 export default function ProfileBanner() {
     return (
         <>
-            <div className='flex ml-5 mt-5 items-center'>
+            <div className='flex items-center'>
                 <div className='flex bg-[#f7f8fb] w-60 h-60 rounded-full overflow-hidden items-center justify-center pt-13 '>
                     <Image src='/headshot1.jpg' alt="Chanelle's profile picture" width={200} height={200} />
                 </div>
@@ -15,13 +15,17 @@ export default function ProfileBanner() {
                     <div className='text-2xl'>
                         <ReactTyped 
                             strings={[
-                                'test',
-                                'nother',
-                                'hi'
+                                "I'm an <span style='color: #45d435'>Environmental Science</span> and <span style='color: #16aafa'>Law</span> major",
+                                "I'm a <span style='color: #facb32'>Climate Activist</span>",
+                                "I'm a proud <span style='color: #12d8db'>New Mexican</span>",
+                                "I'm an aspiring <span style='color: #db124e'>Environmental Lawyer</span>",
+                                "I'm a <span style='color: #543e7d'>400m Runner</span>",
+                                "I'm a <span style='color: #f0269c'>Writer</span>"
                             ]}
                             typeSpeed={50}
-                            backSpeed={50}
+                            backSpeed={25}
                             loop={true}
+                            backDelay={1250}
                         />
                     </div>
                     

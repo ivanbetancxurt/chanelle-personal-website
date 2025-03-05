@@ -4,7 +4,7 @@ import ContactItem from './contactitem';
 export function ContactBar() {
     return (
         <>
-            <div className='fixed bottom-0 flex flex-col items-center pb-5 font-bold'>
+            <div className='flex flex-col items-center pb-5 font-bold'>
                 Get in contact with me!
                 <div className='flex gap-12 font-normal pt-3'>
                     <ContactItem 

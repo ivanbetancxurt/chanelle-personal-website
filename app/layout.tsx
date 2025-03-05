@@ -22,14 +22,14 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en' className={outfit.className}>
-            <body className='flex flex-col'>
-                <header className='flex justify-center pt-5'>
+            <body className='flex flex-col min-h-screen'>
+                <header className='flex justify-center pt-5 h-auto '>
                     <NavBar />
                 </header>
-                <main className='py-5 px-10 flex justify-center '>
+                <main className='flex flex-1 pt-10 px-15'>
                     {children}
                 </main>
-                <footer className='flex justify-center w-full'>
+                <footer className='flex justify-center w-full h-auto'>
                     <ContactBar />
                 </footer>
             </body>
