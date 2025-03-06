@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Outfit } from "next/font/google"; //! here for future reference
+import { Outfit } from "next/font/google";
 import './globals.css';
 import NavBar from "@/components/navbar";
 import { ContactBar } from '@/components/contactbar';

@@ -5,8 +5,15 @@ export default function ProfileBanner() {
     return (
         <>
             <div className='flex items-center'>
-                <div className='flex bg-[#f7f8fb] w-60 h-60 rounded-full overflow-hidden items-center justify-center pt-13 '>
-                    <Image src='/headshot1.jpg' alt="Chanelle's profile picture" width={200} height={200} />
+                <div className='relative flex bg-[#f7f8fb] w-60 aspect-square rounded-full overflow-hidden items-center justify-center pt-13 
+                                sm:hidden md:block'
+                >
+                    <Image 
+                        src='/headshot1.jpg' 
+                        alt="Chanelle's profile picture" 
+                        fill 
+                        className='object-cover object-top' 
+                        style={{objectPosition: '50% 20%'}}/>
                 </div>
                 <div className='flex flex-col h-[100px] px-8 justify-evenly'>
                     <div className='font-bold text-6xl '>

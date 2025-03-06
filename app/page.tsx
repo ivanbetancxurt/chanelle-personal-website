@@ -6,7 +6,7 @@ export default function Home() {
     return (
         <>
             <div className='flex h-auto'>
-                <div className='flex flex-col w-2/3'>
+                <div className='flex flex-col lg:w-2/3 sm:w-full'>
                     <ProfileBanner />
                     <div className='flex-1 flex px-5 items-center'>
                         <p style={{textIndent: '2em'}} className='text-2xl'>
@@ -14,7 +14,7 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
-                <div className='w-1/3'>
+                <div className='lg:flex-1 lg:block sm:hidden'>
                     Experiences
                 </div>
             </div>
