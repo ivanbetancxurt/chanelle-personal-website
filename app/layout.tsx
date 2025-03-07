@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { Outfit } from "next/font/google";
+import { Outfit } from 'next/font/google';
 import './globals.css';
-import NavBar from "@/components/navbar";
+import NavBar from '@/components/navbar';
 import { ContactBar } from '@/components/contactbar';
 
 export const outfit = Outfit({
