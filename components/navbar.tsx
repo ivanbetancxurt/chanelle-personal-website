@@ -2,13 +2,9 @@
 
 import {
     Menubar,
-    MenubarContent,
-    MenubarItem,
     MenubarMenu,
-    MenubarSeparator,
-    MenubarShortcut,
     MenubarTrigger,
-  } from '@/components/ui/menubar';
+} from '@/components/ui/menubar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -26,6 +22,11 @@ export default function NavBar() {
                 <MenubarTrigger asChild className={path === '/writing' ? 'bg-amber-200' : ''}>
                     <Link href='/writing'>
                         Writing
+                    </Link>
+                </MenubarTrigger>
+                <MenubarTrigger asChild className={path === '/resume' ? 'bg-amber-200' : ''}>
+                    <Link href='/resume'>
+                        Resume
                     </Link>
                 </MenubarTrigger>
             </MenubarMenu>

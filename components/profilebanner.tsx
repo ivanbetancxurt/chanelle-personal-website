@@ -6,7 +6,7 @@ export default function ProfileBanner() {
         <>
             <div className='flex items-center'>
                 <div className='relative bg-[#f7f8fb] w-60 aspect-square rounded-full overflow-hidden items-center justify-center pt-13 
-                                hidden md:flex'
+                                hidden md:flex shadow-2xl'
                 >
                     <Image 
                         src='/headshot1.jpg' 

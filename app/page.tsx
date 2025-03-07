@@ -4,9 +4,6 @@ import ProfileBanner from '@/components/profilebanner';
 import Image from 'next/image';
 
 export default function Home() {
-
-    //todo: small screen bug, picture shows
-
     return (
         <>
             <div className='flex h-auto'>
@@ -24,18 +21,24 @@ export default function Home() {
                             Education
                         </p>
                         <div className='flex justify-evenly py-5 h-auto'>
-                            <Image src='/amherst-college-two-line-seal.png' alt='Amherst College logo' width={300} height={100} />
-                            <Image src='/atc-logo.png' alt='The Academy of Technology and the Classics logo' width={100} height={100} />
-                        </div>
+                            {/* wrap with <a></a> */}
+                            <Image 
+                                src='/amherst-college-two-line-seal.png' alt='Amherst College logo' width={300} height={100} className='hover:bg-gray-200 rounded-2xl p-2' />
+                            
+                            {/* wrap with <a></a> */}
+                            <Image src='/atc-logo.png' alt='The Academy of Technology and the Classics logo' width={110} height={100} className='hover:bg-gray-200 rounded-2xl p-2' />
+                        </div> 
                     </section>
                     <section className='flex flex-col w-full items-center'>
                         <p className='text-2xl h-auto font-bold'>
                             Experience
                         </p>
                         <div className='flex flex-col flex-1 pt-5 gap-7 items-center'>
-                            <Image src='/lanl-logo.png' alt='Los Alamos National Laboratory logo' width={400} height={250} />
-                            <Image src='/the-amherst-student-logo.png' alt='The Amherst Student logo' width={400} height={250} />
-                            <Image src='/santa-fe-new-mexican-logo.png' alt='The Santa Fe New Mexican logo' width={420} height={250} />
+                            <Image src='/lanl-logo.png' alt='Los Alamos National Laboratory logo' width={400} height={250} className='hover:bg-gray-200 rounded-2xl p-2' />
+                            <Image src='/the-amherst-student-logo.png' alt='The Amherst Student logo' width={400} height={250} className='hover:bg-gray-200 rounded-2xl p-2' />
+
+                            {/* need to make this logo transparent so we can cahnge bg-color */}
+                            <Image src='/santa-fe-new-mexican-logo.png' alt='The Santa Fe New Mexican logo' width={420} height={250} className='hover:bg-gray-200 rounded-2xl p-2' />
                         </div>
                     </section>
                 </div>

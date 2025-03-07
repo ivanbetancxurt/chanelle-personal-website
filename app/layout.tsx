@@ -26,7 +26,7 @@ export default function RootLayout({
                 <header className='flex justify-center pt-5 h-auto '>
                     <NavBar />
                 </header>
-                <main className='flex flex-1 pt-10 px-15'>
+                <main className='flex flex-1 py-10 px-15'>
                     {children}
                 </main>
                 <footer className='flex justify-center w-full h-auto'>
