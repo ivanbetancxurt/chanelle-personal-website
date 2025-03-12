@@ -7,12 +7,10 @@ interface ArticleListProps {
 
 export default function ArticleList({ articles }: ArticleListProps) {
     return (
-        <>
-            <div className='bg-gray-100 flex flex-col rounded-3xl p-5 gap-2'>
-                {articles.map((article, i) => (
-                    <Article article={article} key={i} />
-                ))}
-            </div>
-        </>
+        <div className='bg-gray-100 flex flex-col w-auto rounded-3xl p-5 gap-2 overflow-y-auto max-h-full h-full'>
+            {articles.map((article, i) => (
+                <Article article={article} key={i} />
+            ))}
+        </div>
     );
 }

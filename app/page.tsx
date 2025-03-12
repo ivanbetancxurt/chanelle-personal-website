@@ -15,6 +15,7 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
+
                 <div className='lg:flex lg:flex-col lg:flex-1 hidden items-center gap-12'>
                     <section className='flex flex-col items-center'>
                         <p className='text-2xl h-auto font-bold'>
@@ -29,6 +30,7 @@ export default function Home() {
                             </a>    
                         </div> 
                     </section>
+                    
                     <section className='flex flex-col w-full items-center'>
                         <p className='text-2xl h-auto font-bold'>
                             Experience
