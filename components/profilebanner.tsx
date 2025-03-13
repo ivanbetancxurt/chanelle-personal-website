@@ -23,7 +23,7 @@ export default function ProfileBanner() {
                     <div className='text-2xl'>
                         <ReactTyped 
                             strings={[
-                                "I'm an <span style='color: #45d435'>Environmental Science</span> and <span style='color: #16aafa'>Law</span> major",
+                                "I'm an <span style='color: #45d435'>Environmental Studies</span> and <span style='color: #16aafa'>Law</span> major",
                                 "I'm a <span style='color: #facb32'>Climate Activist</span>",
                                 "I'm a proud <span style='color: #12d8db'>New Mexican</span>",
                                 "I'm an aspiring <span style='color: #db124e'>Environmental Lawyer</span>",

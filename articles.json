@@ -3,72 +3,96 @@
         "title": "Panel Discusses Effects of Trump Presidency on Amherst Students",
         "link": "https://amherststudent.com/article/panel-discusses-effects-of-trump-presidency-on-amherst-students/",
         "publication": "The Amherst Student",
-        "date": "March 5th, 2025"
+        "date": "March 5th, 2025",
+        "thumbnail": "/student-mar-5-2025-thumbnail.jpeg",
+        "thumbnailDescription": "Austin Sarat"
     },
     {
         "title": "College Honors MLK with Day of Service Events",
         "link": "https://amherststudent.com/article/college-honors-mlk-with-day-of-service-events/",
         "publication": "The Amherst Student",
-        "date": "February 19th, 2025"
+        "date": "February 19th, 2025",
+        "thumbnail": "/student-feb-19-2025-thumbnail.jpg",
+        "thumbnailDescription": "Keefe Campus Center at Amherst College"
     },
     {
         "title": "Trump’s Election Sparks Visa Concerns for International Students",
         "link": "https://amherststudent.com/article/trumps-election-sparks-visa-concerns-for-international-students/",
         "publication": "The Amherst Student",
-        "date": "November 20th, 2024"
+        "date": "November 20th, 2024",
+        "thumbnail": "/student-nov-20-2024-thumbnail.webp",
+        "thumbnailDescription": "International Student Center at Amherst College"
     },
     {
         "title": "PVTA Announces Free Fares for All Riders, New Amherst-Greenfield Line",
         "link": "https://amherststudent.com/article/pvta-announces-free-fares-for-all-riders-new-amherst-greenfield-line/",
         "publication": "The Amherst Student",
-        "date": "October 23rd, 2024"
+        "date": "October 23rd, 2024",
+        "thumbnail": "/student-oct-23-2024-thumbnail.png",
+        "thumbnailDescription": "Bus Stop at Converse Hall"
     },
     {
         "title": "Board of Trustees Town Hall Sees Low Attendance",
         "link": "https://amherststudent.com/article/board-of-trustees-town-hall-sees-low-attendance/",
         "publication": "The Amherst Student",
-        "date": "September 25th, 2024"
+        "date": "September 25th, 2024",
+        "thumbnail": "/student-sep-25-2024-thumbnail.jpeg",
+        "thumbnailDescription": "Amherst College Board of Trustees Town Hall"
     },
     {
         "title": "Poet Ilya Kaminsky Discusses His Relationship to Language and Hearing",
         "link": "https://amherststudent.com/article/poet-ilya-kaminsky-discusses-his-relationship-to-language-and-hearing/",
         "publication": "The Amherst Student",
-        "date": "April 24th, 2024"
+        "date": "April 24th, 2024",
+        "thumbnail": "/student-apr-24-2024-thumbnail.png",
+        "thumbnailDescription": "Ilya Kaminsky"
     },
     {
         "title": "Bayoumi Talks Arab-American Experience In Response To War",
         "link": "https://amherststudent.com/article/bayoumi-talks-arab-american-experience-in-response-to-war/",
         "publication": "The Amherst Student",
-        "date": "April 3rd, 2024"
+        "date": "April 3rd, 2024",
+        "thumbnail": "/student-apr-3-2024-thumbnail.jpg",
+        "thumbnailDescription": "Bayoumi's Talk"
     },
     {
         "title": "The Evergreens: Home and Heart of the Dickinsons",
         "link": "https://amherststudent.com/article/the-evergreens-home-and-heart-of-the-dickinsons/",
         "publication": "The Amherst Student",
-        "date": "March 6th, 2024"
+        "date": "March 6th, 2024",
+        "thumbnail": "/student-mar-6-2024-thumbnail.jpeg",
+        "thumbnailDescription": "The Evergreens"
     },
     {
         "title": "College Hires Part-time Rabbi After Months-Long Search",
         "link": "https://amherststudent.com/article/college-hires-part-time-rabbi-after-months-long-search/",
         "publication": "The Amherst Student",
-        "date": "December 13th, 2023"
+        "date": "December 13th, 2023",
+        "thumbnail": "/student-dec-13-2023-thumbnail.jpeg",
+        "thumbnailDescription": "Rabbi Shahar Colt"
     },
     {
         "title": "Ora Szekely Discusses What We Do and Don’t Know About the Israel and Hamas Conflict",
         "link": "https://amherststudent.com/article/ora-szekely-discusses-what-we-know-and-dont-know-about-the-israel-and-hamas-conflict/",
         "publication": "The Amherst Student",
-        "date": "November 10th, 2023"
+        "date": "November 10th, 2023",
+        "thumbnail": "/student-nov-10-2023-thumbnail.jpeg",
+        "thumbnailDescription": "Szekely's Talk"
     },
     {
         "title": "Running to success at Amherst",
         "link": "https://www.santafenewmexican.com/life/teen/running-to-success-at-amherst/article_72226eaa-7ea7-11ee-8d2a-df6b1d525cac.html",
         "publication": "Santa Fe New Mexican",
-        "date": "November 9th, 2023"
+        "date": "November 9th, 2023",
+        "thumbnail": "/santafe-nov-9-2023-thumbnail.png",
+        "thumbnailDescription": "Jaeger Celebrating"
     },
     {
         "title": "Sitting in gratitude on the freshman quad",
         "link": "https://www.santafenewmexican.com/life/teen/sitting-in-gratitude-on-the-freshman-quad/article_96d4e520-52b0-11ee-9609-b30856f907e6.html",
         "publication": "Santa Fe New Mexican",
-        "date": "September 14th, 2023"
+        "date": "September 14th, 2023",
+        "thumbnail": "/santafe-sep-14-2023-thumbnail.png",
+        "thumbnailDescription": "Memorial Hill at Amherst College"
     }
 ]
