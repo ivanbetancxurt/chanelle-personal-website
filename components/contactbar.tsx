@@ -1,5 +1,5 @@
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import ContactItem from './contactitem';
+import ContactItem from './ContactItem';
 
 export function ContactBar() {
     return (

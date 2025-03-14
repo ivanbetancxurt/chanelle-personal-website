@@ -1,6 +1,6 @@
 'use client'
 
-import ProfileBanner from '@/components/profilebanner';
+import ProfileBanner from '@/components/ProfileBanner';
 import Image from 'next/image';
 
 export default function Home() {
