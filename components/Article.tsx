@@ -20,7 +20,7 @@ export default function Article({ article }: ArticleProps) {
                 </div>
             
                 <div className='flex flex-col'>
-                    <div className='flex gap-1 items-center'>
+                    <div className='flex gap-2 items-center'>
                         {isNew ? (
                             <div className='bg-green-400 h-3 w-3 rounded-full'></div>
                         ) : null}
