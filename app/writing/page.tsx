@@ -3,6 +3,7 @@
 import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
 import { Formik, Form, Field } from 'formik';
+import { useState } from 'react';
 
 interface filterValues {
     search: string,
@@ -12,17 +13,19 @@ interface filterValues {
 
 export default function Writing() {
     const initalValues: filterValues = { search: '', publication: 'All', date: '' }
+    const [publication, setPublication] = useState('All');
+
     return (
         <>
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
-                <div className='absolute top-0 bottom-0'>
-                    <ArticleList articles={articles} />   
+                <div className='absolute top-0 bottom-0 min-w-200'>
+                    <ArticleList articles={articles} publication={publication} />   
                 </div>     
                 <div className='absolute left-0 top-8 text-2xl'>
                     <Formik
                         initialValues={initalValues}
                         onSubmit={(values, { setSubmitting }) => {
-                            console.log(values);
+                            setPublication(values.publication);
                         }}
                     >
                         <Form>
@@ -35,10 +38,6 @@ export default function Writing() {
                                         <option>The Amherst Student</option>
                                         <option>Santa Fe New Mexican</option>
                                     </Field>
-                                </div>
-                                <div className='flex flex-col'>
-                                    <label htmlFor='date'>Date:</label>
-                                    <Field id='date' name='date' type='date' />
                                 </div>
 
                                 <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-xl'>

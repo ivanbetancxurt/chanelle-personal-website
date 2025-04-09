@@ -1,5 +1,13 @@
 [
     {
+        "title": "College Reacts to Department of Education Executive Order",
+        "link": "https://amherststudent.com/article/college-reacts-to-department-of-education-executive-order/",
+        "publication": "The Amherst Student",
+        "date": "April 2nd, 2025",
+        "thumbnail": "/student-apr-2-2025-thumbnail.jpg",
+        "thumbnailDescription": "Johnson Chapel"
+    },
+    {
         "title": "Panel Discusses Effects of Trump Presidency on Amherst Students",
         "link": "https://amherststudent.com/article/panel-discusses-effects-of-trump-presidency-on-amherst-students/",
         "publication": "The Amherst Student",
@@ -94,5 +102,13 @@
         "date": "September 14th, 2023",
         "thumbnail": "/santafe-sep-14-2023-thumbnail.png",
         "thumbnailDescription": "Memorial Hill at Amherst College"
+    },
+    {
+        "title": "Balloon Fiesta rises again",
+        "link": "https://www.santafenewmexican.com/life/teen/balloon-fiesta-rises-again/article_73cc7e62-2783-11ec-9b70-3f73b3296eef.html",
+        "publication": "Santa Fe New Mexican",
+        "date": "October 7th, 2021",
+        "thumbnail": "/santafe-oct-7-2021-thumbnail.jpg",
+        "thumbnailDescription": "Chanelle Jaeger and her grandfather, Leonard Vigil, in 2007 at the Balloon Fiesta."
     }
 ]
