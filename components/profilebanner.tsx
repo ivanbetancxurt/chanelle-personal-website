@@ -6,7 +6,7 @@ import { ReactTyped } from 'react-typed';
 export default function ProfileBanner() {
     return (
         <>
-            <div className='flex items-center'>
+            <div className='flex items-center mb-3'>
                 <div className='relative bg-[#f7f8fb] w-60 aspect-square rounded-full overflow-hidden items-center justify-center pt-13 
                     hidden md:flex shadow-2xl flex-shrink-0'
                 >
@@ -22,7 +22,7 @@ export default function ProfileBanner() {
                     <div className='font-bold text-6xl '>
                         Hi, I'm Chanelle!
                     </div>
-                    <div className='text-2xl'>
+                    <div className='text-2xl hidden md:flex'>
                         <ReactTyped 
                             strings={[
                                 "I'm an <span style='color: #45d435'>Environmental Studies</span> and <span style='color: #16aafa'>Law, Jurisprudence, and Social Thought</span> major",
