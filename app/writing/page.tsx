@@ -12,22 +12,21 @@ interface filterValues {
 
 export default function Writing() {
     const initalValues: filterValues = { search: '', publication: 'All' }
-    const [search, setSearch] = useState('');
-    const [publication, setPublication] = useState('All');
-    const [appliedMessageHidden, setAppliedMessageHidden] = useState(true);
-
-
+    const [search, setSearch] = useState(''); // article search state
+    const [publication, setPublication] = useState('All'); // publication choice state
+    const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation flag
 
     return (
         <>
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
                 <div className='absolute top-0 bottom-0 min-w-200'>
-                    <ArticleList articles={articles} publication={publication} />   
+                    <ArticleList articles={articles} search={search} publication={publication} />   
                 </div>     
                 <div className='absolute left-0 top-8 text-2xl'>
                     <Formik
                         initialValues={initalValues}
                         onSubmit={(values) => {
+                            setSearch(values.search);
                             setPublication(values.publication);
 
                             // display 'Filter applied!' message for 3 seconds after apply button pressed
@@ -37,9 +36,7 @@ export default function Writing() {
                             }, 3000);
                         }}
                     >
-                        {({ values, dirty, touched }) => {
-                            
-
+                        {() => {
                             return (
                                 <Form>
                                     <div className='flex flex-col gap-3'>
