@@ -2,18 +2,21 @@
 
 import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useFormikContext } from 'formik';
 import { useState } from 'react';
 
 interface filterValues {
     search: string,
     publication: string,
-    date: string
 }
 
 export default function Writing() {
-    const initalValues: filterValues = { search: '', publication: 'All', date: '' }
+    const initalValues: filterValues = { search: '', publication: 'All' }
+    const [search, setSearch] = useState('');
     const [publication, setPublication] = useState('All');
+    const [appliedMessageHidden, setAppliedMessageHidden] = useState(true);
+
+
 
     return (
         <>
@@ -24,27 +27,45 @@ export default function Writing() {
                 <div className='absolute left-0 top-8 text-2xl'>
                     <Formik
                         initialValues={initalValues}
-                        onSubmit={(values, { setSubmitting }) => {
+                        onSubmit={(values) => {
                             setPublication(values.publication);
+
+                            // display 'Filter applied!' message for 3 seconds after apply button pressed
+                            setAppliedMessageHidden(false);
+                            setTimeout(() => {
+                                setAppliedMessageHidden(true);
+                            }, 3000);
                         }}
                     >
-                        <Form>
-                            <div className='flex flex-col gap-3'>
-                                <Field id='search' name='search' placeholder='Search articles' className='underline focus:outline-none w-full' />
-                                <div className='flex flex-col'>
-                                    <label htmlFor='publication'>Publication:</label>
-                                    <Field id='publication' name='publication' as='select'>
-                                        <option>All</option>
-                                        <option>The Amherst Student</option>
-                                        <option>Santa Fe New Mexican</option>
-                                    </Field>
-                                </div>
+                        {({ values, dirty, touched }) => {
+                            
 
-                                <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-xl'>
-                                    Apply
-                                </button>
-                            </div>
-                        </Form>
+                            return (
+                                <Form>
+                                    <div className='flex flex-col gap-3'>
+                                        <Field id='search' name='search' placeholder='Search articles' className='underline focus:outline-none w-full' />
+                                        <div className='flex flex-col'>
+                                            <label htmlFor='publication'>Publication:</label>
+                                            <Field id='publication' name='publication' as='select' className='focus:outline-none'>
+                                                <option>All</option>
+                                                <option>The Amherst Student</option>
+                                                <option>Santa Fe New Mexican</option>
+                                            </Field>
+                                        </div>
+
+                                        <div className='flex-col space-y-2'>
+                                            <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-xl'>
+                                                Apply
+                                            </button>
+                                            <p className='text-sm text-green-400' hidden={appliedMessageHidden}>
+                                                Filter applied!
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                </Form>
+                            );
+                        }}
                     </Formik>
                 </div>
             </div>
