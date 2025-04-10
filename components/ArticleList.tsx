@@ -21,7 +21,9 @@ export default function ArticleList({ articles, search, publication }: ArticleLi
                     <Article article={article} key={i} />
                 ))
             ) : (
-                <p>No Results Found for Your Search</p>
+                <div className='flex w-full justify-center'>
+                    <p>No Results Found for Your Search! :(</p>
+                </div>
             )}
         </div>
     );
