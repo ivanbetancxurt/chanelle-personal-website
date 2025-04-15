@@ -22,7 +22,7 @@ export default function ArticleList({ articles, search, publication }: ArticleLi
                 ))
             ) : (
                 <div className='flex w-full justify-center'>
-                    <p>No Results Found for Your Search! :(</p>
+                    <p>No matches found for your filters! :(</p>
                 </div>
             )}
         </div>

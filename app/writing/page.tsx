@@ -42,11 +42,12 @@ export default function Writing() {
                                     <div className='flex flex-col gap-3'>
                                         <Field id='search' name='search' placeholder='Search articles' className='underline focus:outline-none w-full' />
                                         <div className='flex flex-col'>
-                                            <label htmlFor='publication'>Publication:</label>
+                                            <label htmlFor='publication'>Organization:</label>
                                             <Field id='publication' name='publication' as='select' className='focus:outline-none'>
                                                 <option>All</option>
                                                 <option>The Amherst Student</option>
                                                 <option>Santa Fe New Mexican</option>
+                                                <option>LANL</option>
                                             </Field>
                                         </div>
 
