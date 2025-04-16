@@ -1,7 +1,7 @@
 export type ArticleT = {
     title: string,
     link: string,
-    publication: string,
+    organization: string,
     date: string,
     thumbnail: string,
     thumbnailDescription: string

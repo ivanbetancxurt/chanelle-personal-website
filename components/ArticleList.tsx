@@ -4,14 +4,14 @@ import Article from './Article';
 interface ArticleListProps {
     articles: ArticleT[],
     search: string,
-    publication: string,
+    organization: string,
 }
 
-export default function ArticleList({ articles, search, publication }: ArticleListProps) {
+export default function ArticleList({ articles, search, organization }: ArticleListProps) {
     // get aticles that match filter criteria
     const filteredArticles = articles.filter(article => 
         (article.title.includes(search) || article.title.toLowerCase().includes(search)) && 
-        (article.publication == publication || publication == 'All')
+        (article.organization == organization || organization == 'All')
     );
 
     return (

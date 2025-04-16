@@ -7,27 +7,27 @@ import { useState } from 'react';
 
 interface filterValues {
     search: string,
-    publication: string,
+    organization: string,
 }
 
 export default function Writing() {
-    const initalValues: filterValues = { search: '', publication: 'All' }
+    const initalValues: filterValues = { search: '', organization: 'All' }
     const [search, setSearch] = useState(''); // article search state
-    const [publication, setPublication] = useState('All'); // publication choice state
+    const [organization, setOrganization] = useState('All'); // organization choice state
     const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation flag
 
     return (
         <>
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
                 <div className='absolute top-0 bottom-0 min-w-200'>
-                    <ArticleList articles={articles} search={search} publication={publication} />   
+                    <ArticleList articles={articles} search={search} organization={organization} />   
                 </div>     
                 <div className='absolute left-0 top-8 text-2xl'>
                     <Formik
                         initialValues={initalValues}
                         onSubmit={(values) => {
                             setSearch(values.search);
-                            setPublication(values.publication);
+                            setOrganization(values.organization);
 
                             // display 'Filter applied!' message for 3 seconds after apply button pressed
                             setAppliedMessageHidden(false);
@@ -42,8 +42,8 @@ export default function Writing() {
                                     <div className='flex flex-col gap-3'>
                                         <Field id='search' name='search' placeholder='Search articles' className='underline focus:outline-none w-full' />
                                         <div className='flex flex-col'>
-                                            <label htmlFor='publication'>Organization:</label>
-                                            <Field id='publication' name='publication' as='select' className='focus:outline-none'>
+                                            <label htmlFor='organization'>Organization:</label>
+                                            <Field id='organization' name='organization' as='select' className='focus:outline-none'>
                                                 <option>All</option>
                                                 <option>The Amherst Student</option>
                                                 <option>Santa Fe New Mexican</option>
