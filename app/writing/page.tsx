@@ -10,11 +10,12 @@ interface filterValues {
     organization: string,
 }
 
+// todo: make responsive
 export default function Writing() {
-    const initalValues: filterValues = { search: '', organization: 'All' }
+    const initalValues: filterValues = { search: '', organization: 'All' } // initial values of filter form
     const [search, setSearch] = useState(''); // article search state
     const [organization, setOrganization] = useState('All'); // organization choice state
-    const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation flag
+    const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation showing flag
 
     return (
         <>
@@ -50,7 +51,7 @@ export default function Writing() {
                                                 <option>LANL</option>
                                             </Field>
                                         </div>
-
+                                        
                                         <div className='flex-col space-y-2'>
                                             <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-xl'>
                                                 Apply
