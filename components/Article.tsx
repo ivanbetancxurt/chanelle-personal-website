@@ -26,7 +26,7 @@ export default function Article({ article }: ArticleProps) {
                         ) : null}
                         <p className='font-bold'>{article.title}</p>
                     </div>
-                    <p>{article.publication}</p>
+                    <p>{article.organization}</p>
                     <p className='right-auto'>{article.date}</p>
                 </div>
             </div>
