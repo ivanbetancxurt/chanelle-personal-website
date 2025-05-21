@@ -3,8 +3,7 @@
 import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
 import { Formik, Form, Field, useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
-import { DELETE } from '../api/setChan/route';
+import { useState } from 'react';
 
 interface filterValues {
     search: string,
@@ -18,20 +17,6 @@ export default function Writing() {
     const [search, setSearch] = useState(''); // article search state
     const [organization, setOrganization] = useState('All'); // organization choice state
     const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation showing flag
-    const [isChan, setIsChan] = useState<boolean|null>(null); // flag for whether this is chanelle
-    const [publicMode, setPublicMode] = useState<boolean>(false); // state for whether chanelle in is public mode or not
- 
-    // set isChan flag by getting the state of the cookie via api
-    useEffect(() => { 
-        fetch('/api/amChan')
-            .then(res => res.json())
-            .then(({ isChan }) => setIsChan(isChan));
-    }, []);
-
-    // toggles publicMode state
-    function toggleMode() {
-        setPublicMode(!publicMode);
-    }
 
     return (
         <>
@@ -39,6 +24,7 @@ export default function Writing() {
                 <div className='absolute top-0 bottom-0 min-w-200'>
                     <ArticleList articles={articles} search={search} organization={organization} />   
                 </div>     
+                
                 <div className='absolute left-0 top-8 text-2xl'>
                     <Formik
                         initialValues={initalValues}
@@ -83,15 +69,6 @@ export default function Writing() {
                         }}
                     </Formik>
                 </div>
-                {isChan ? (
-                    publicMode ? (
-                        <div className='absolute right-0'>go private</div>
-                    ) : (
-                        <button className='absolute right-0' onClick={() => {toggleMode();}}>
-                            public
-                        </button>
-                    )
-                ) : null}
             </div>
         </>
     );
