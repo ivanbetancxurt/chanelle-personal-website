@@ -3,7 +3,7 @@
 import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
 import { Formik, Form, Field, useFormikContext } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface filterValues {
     search: string,
@@ -11,11 +11,21 @@ interface filterValues {
 }
 
 // todo: make responsive
+
 export default function Writing() {
     const initalValues: filterValues = { search: '', organization: 'All' } // initial values of filter form
     const [search, setSearch] = useState(''); // article search state
     const [organization, setOrganization] = useState('All'); // organization choice state
     const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation showing flag
+
+    const [isChan, setIsChan] = useState<boolean|null>(null); // flag for whether this is Chan
+
+    // set Chan flag by getting the state of the cookie via api
+    useEffect(() => { 
+        fetch('api/amChan')
+            .then(res => res.json())
+            .then(({ isChan }) => setIsChan(isChan));
+    }, []);
 
     return (
         <>
@@ -67,6 +77,11 @@ export default function Writing() {
                         }}
                     </Formik>
                 </div>
+                {isChan && (
+                    <div className='absolute right-0'>
+                        hello
+                    </div>
+                )}
             </div>
         </>
     );
