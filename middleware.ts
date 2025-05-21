@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// checks for the presence of 'key' search parameter and sets the isChan cookie if the value is correct
 export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone(); // get a copy of the current Next URL object
     const key = url.searchParams.get('key'); // get the search param named 'key'

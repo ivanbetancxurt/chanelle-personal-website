@@ -3,6 +3,7 @@ import { Outfit } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/NavBar';
 import ContactBar from '@/components/ContactBar';
+import { ViewModeProvider } from '@/contexts/ViewModeContext';
 
 export const outfit = Outfit({
     subsets: ['latin'],
@@ -23,15 +24,17 @@ export default async function RootLayout({
     return (
         <html lang='en' className={outfit.className}>
             <body className='flex flex-col h-screen'>
-                <header className='flex justify-center pt-5 h-auto'>
-                    <NavBar />
-                </header>
-                <main className='flex flex-1 h-full py-9 px-15'>
-                    {children}
-                </main>
-                <footer className='flex justify-center w-full h-auto'>
-                    <ContactBar />
-                </footer>
+                <ViewModeProvider>
+                    <header className='flex justify-center pt-5 h-auto'>
+                        <NavBar />
+                    </header>
+                    <main className='flex flex-1 h-full py-9 px-15'>
+                        {children}
+                    </main>
+                    <footer className='flex justify-center w-full h-auto'>
+                        <ContactBar />
+                    </footer>
+                </ViewModeProvider>
             </body>
         </html>
     );
