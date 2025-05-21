@@ -18,24 +18,19 @@ export default function Writing() {
     const [search, setSearch] = useState(''); // article search state
     const [organization, setOrganization] = useState('All'); // organization choice state
     const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation showing flag
-
-    const [isChan, setIsChan] = useState<boolean|null>(null); // flag for whether this is Chan
-
-    // set Chan flag by getting the state of the cookie via api
+    const [isChan, setIsChan] = useState<boolean|null>(null); // flag for whether this is chanelle
+    const [publicMode, setPublicMode] = useState<boolean>(false); // state for whether chanelle in is public mode or not
+ 
+    // set isChan flag by getting the state of the cookie via api
     useEffect(() => { 
         fetch('/api/amChan')
             .then(res => res.json())
             .then(({ isChan }) => setIsChan(isChan));
     }, []);
 
+    // toggles publicMode state
     function toggleMode() {
-        fetch('/api/setChan', {method: 'DELETE'})
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error(`There was an error fethcing from setChan/DELETE: ${res.status}`)
-                }
-                setIsChan(false);
-            });
+        setPublicMode(!publicMode);
     }
 
     return (
@@ -88,11 +83,15 @@ export default function Writing() {
                         }}
                     </Formik>
                 </div>
-                {isChan && (
-                    <button className='absolute right-0' onClick={() => {toggleMode();}}>
-                        hello
-                    </button>
-                )}
+                {isChan ? (
+                    publicMode ? (
+                        <div className='absolute right-0'>go private</div>
+                    ) : (
+                        <button className='absolute right-0' onClick={() => {toggleMode();}}>
+                            public
+                        </button>
+                    )
+                ) : null}
             </div>
         </>
     );
