@@ -4,6 +4,7 @@ import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
+import { DELETE } from '../api/setChan/route';
 
 interface filterValues {
     search: string,
@@ -22,10 +23,20 @@ export default function Writing() {
 
     // set Chan flag by getting the state of the cookie via api
     useEffect(() => { 
-        fetch('api/amChan')
+        fetch('/api/amChan')
             .then(res => res.json())
             .then(({ isChan }) => setIsChan(isChan));
     }, []);
+
+    function toggleMode() {
+        fetch('/api/setChan', {method: 'DELETE'})
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`There was an error fethcing from setChan/DELETE: ${res.status}`)
+                }
+                setIsChan(false);
+            });
+    }
 
     return (
         <>
@@ -78,9 +89,9 @@ export default function Writing() {
                     </Formik>
                 </div>
                 {isChan && (
-                    <div className='absolute right-0'>
+                    <button className='absolute right-0' onClick={() => {toggleMode();}}>
                         hello
-                    </div>
+                    </button>
                 )}
             </div>
         </>
