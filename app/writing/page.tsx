@@ -4,6 +4,7 @@ import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { useState } from 'react';
+import AddArticleButton from '@/components/AddArticleButton';
 
 interface filterValues {
     search: string,
@@ -69,6 +70,8 @@ export default function Writing() {
                         }}
                     </Formik>
                 </div>
+
+                <AddArticleButton />
             </div>
         </>
     );

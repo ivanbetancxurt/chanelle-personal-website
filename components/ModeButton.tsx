@@ -14,7 +14,7 @@ export default function ModeButton({label, toggleMode, color} : ModeButtonProps)
 	}
 
 	return (
-		<button className={`absolute left-15 w-[180px] h-9 ${buttonColors[color]} rounded-2xl cursor-pointer`} onClick={toggleMode}>
+		<button className={`absolute left-15 w-[180px] h-9 ${buttonColors[color]} rounded-lg cursor-pointer`} onClick={toggleMode}>
 			{label}
 		</button>
 	);
