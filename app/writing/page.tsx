@@ -14,6 +14,7 @@ export default function Writing() {
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
     const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
+    const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
      
     // set isChan flag by getting the state of the cookie via api
     useEffect(() => { 
@@ -32,7 +33,11 @@ export default function Writing() {
                 <ArticleFilterForm setSearch={setSearch} setOrganization={setOrganization} />
 
                 {isChan && !publicMode && (
-                    <AddArticleButton />
+                    <AddArticleButton setPressed={setAddArticlePressed} />
+                )}
+
+                {addArticlePressed && !publicMode && (
+                    <div className='bg-red-600 absolute'>hi</div>
                 )}
             </div>
         </>
