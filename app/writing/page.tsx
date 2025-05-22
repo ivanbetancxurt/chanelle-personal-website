@@ -2,9 +2,10 @@
 
 import ArticleList from '@/components/ArticleList';
 import articles from '@/articles.json';
-import { Formik, Form, Field, useFormikContext } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { useState } from 'react';
 import AddArticleButton from '@/components/AddArticleButton';
+import { useViewModeContext } from '@/contexts/ViewModeContext';
 
 interface filterValues {
     search: string,
@@ -18,6 +19,7 @@ export default function Writing() {
     const [search, setSearch] = useState(''); // article search state
     const [organization, setOrganization] = useState('All'); // organization choice state
     const [appliedMessageHidden, setAppliedMessageHidden] = useState(true); // filter confirmation showing flag
+    const { publicMode, toggleMode } = useViewModeContext(); // get mode context and toggler for the AddArticle button
 
     return (
         <>
@@ -71,7 +73,9 @@ export default function Writing() {
                     </Formik>
                 </div>
 
-                <AddArticleButton />
+                {!publicMode && (
+                    <AddArticleButton />
+                )}
             </div>
         </>
     );
