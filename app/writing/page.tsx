@@ -16,7 +16,7 @@ export default function Writing() {
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
      
-    // set isChan flag by getting the state of the cookie via api
+    // set isChan flag depending on the state of the cookie via api
     useEffect(() => { 
         fetch('/api/amChan')
             .then(res => res.json())
