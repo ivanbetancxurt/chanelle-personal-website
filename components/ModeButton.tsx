@@ -9,8 +9,8 @@ interface ModeButtonProps {
 export default function ModeButton({label, toggleMode, color} : ModeButtonProps) {
 	// color mapping for dynamic coloring of button
 	const buttonColors = {
-		green: 'bg-green-400',
-		red: 'bg-red-400'
+		green: 'bg-green-400 hover:bg-green-500',
+		red: 'bg-red-400 hover:bg-red-500'
 	}
 
 	return (

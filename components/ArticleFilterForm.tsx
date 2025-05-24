@@ -47,15 +47,14 @@ export default function ArticleFilterForm({ setSearch, setOrganization } : Artic
                                     </Field>
                                 </div>
                                 
-                                <div className='flex-col space-y-2'>
-                                    <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-xl'>
+                                <div className='flex flex-col space-y-2 items-center mt-4'>
+                                    <button type='submit' className='bg-amber-200 w-fit hover:cursor-pointer hover:bg-amber-300 py-1 px-2 rounded-lg text-2xl'>
                                         Apply
                                     </button>
                                     <p className='text-sm text-green-400' hidden={appliedMessageHidden}>
                                         Filter applied!
                                     </p>
                                 </div>
-                                
                             </div>
                         </Form>
                     );
