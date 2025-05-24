@@ -4,7 +4,7 @@ import ArticleList from '@/components/ArticleList';
 import { useState, useEffect } from 'react';
 import AddArticleButton from '@/components/AddArticleButton';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
-import ArticleFilterForm from '@/components/ArticleFilterForm';
+import ArticleFilterForm from '@/components/FilterForm';
 import type { Articles } from '@/lib/generated/prisma';
 import AddArticleForm from './AddArticleForm';
 

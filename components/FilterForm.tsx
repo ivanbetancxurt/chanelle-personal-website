@@ -21,7 +21,7 @@ export default function ArticleFilterForm({ setSearch, setOrganization } : Artic
         <div className='absolute left-0 top-8 text-2xl'>
             <Formik
                 initialValues={initalValues}
-                onSubmit={(values) => {
+                onSubmit={values => {
                     setSearch(values.search);
                     setOrganization(values.organization);
 
