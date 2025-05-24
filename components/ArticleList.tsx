@@ -1,8 +1,8 @@
-import { ArticleT } from '@/types/ArticleT';
+import type { Articles } from '@/lib/generated/prisma';
 import Article from './Article';
 
 interface ArticleListProps {
-    articles: ArticleT[],
+    articles: Articles[],
     search: string,
     organization: string,
 }
