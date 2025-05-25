@@ -2,11 +2,7 @@ import { Articles } from '@/lib/generated/prisma';
 import Image from 'next/image';
 import { isNew } from '@/lib/utils';
 
-interface ArticleProps {
-    article: Articles
-}
-
-export default function Article({ article }: ArticleProps) {
+export default function Article({ article }: { article: Articles }) {
     return (
         <a href={article.link} target='_blank' rel='noopener noreferrer'>
             <div className='flex w-full gap-2 hover:bg-gray-200 p-3 rounded-2xl'>

@@ -10,11 +10,7 @@ import AddArticleForm from './AddArticleForm';
 
 // todo: make responsive
 
-interface WritingPageProps {
-    articles: Articles[]
-}
-
-export default function Writing({ articles }: WritingPageProps) {
+export default function Writing({ articles }: { articles: Articles[] }) {
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
     const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
