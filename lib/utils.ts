@@ -75,3 +75,20 @@ export function yyyymmddToString(date: string): string {
 
     return `${months[parseInt(m)]} ${ordinal(parseInt(d))}, ${y}`; // return in 'month day, year' format
 }
+
+// sort list of articles by newest first
+export function sortArticles(articles: Articles[]) {
+    const sortedArticles = articles.sort((a, b) => {
+        // remove ordinal suffixes from days
+        const cleanDateA = a.date.replace(/(\d+)(st|nd|rd|th)/g, '$1');
+        const cleanDateB = b.date.replace(/(\d+)(st|nd|rd|th)/g, '$1');
+
+        // get date objects from clean dates
+        const dateA = new Date(cleanDateA);
+        const dateB = new Date(cleanDateB);
+
+        return dateB.getTime() - dateA.getTime(); // newest first;
+    });
+
+    return sortedArticles;
+}

@@ -7,6 +7,7 @@ import { useViewModeContext } from '@/contexts/ViewModeContext';
 import ArticleFilterForm from '@/components/FilterForm';
 import type { Articles } from '@/lib/generated/prisma';
 import AddArticleForm from '@/components/AddArticleForm';
+import { sortArticles } from '@/lib/utils';
 
 // todo: make responsive
 
@@ -25,7 +26,8 @@ export default function WritingPage() {
                 if (!res.ok) throw new Error(`There was an error fetching articles: ${res.status}`);
                 return res.json();
             })
-            .then(data => setArticles(data))
+            .then(data => sortArticles(data)) 
+            .then(articles => setArticles(articles))
             .catch(err => {console.error(err);});
     }, []);
 
