@@ -54,7 +54,7 @@ export default function WritingPage() {
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
                 <div className='flex absolute top-0 bottom-0 min-w-200 justify-center'>
                     {loading ? (
-                        <div className='animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-amber-200 mt-20'></div>
+                        <div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200 mt-[200px]'></div>
                     ) : (
                         <ArticleList articles={articles} search={search} organization={organization} />
                     )}  
@@ -71,7 +71,7 @@ export default function WritingPage() {
                          // optimistically add the article to the list
                         const optimisticArticles = [...articles, article];
                         setArticles(sortArticles(optimisticArticles)); 
-                        
+
                         setAddArticlePressed(false); // close the form
                     }} />
                 )}
