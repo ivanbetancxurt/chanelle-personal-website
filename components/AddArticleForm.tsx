@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import type { Articles } from '@/lib/generated/prisma';
 import { getURL, supabaseThumbnailUpload, yyyymmddToString } from '@/lib/utils';
 
-export default function AddArticleForm() {
+export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined); // state for uploaded thumbnail file
 
 	const initialValues: Articles = { // initial values for the form
@@ -32,7 +32,7 @@ export default function AddArticleForm() {
 			const validName = thumbnail.name.replace(/\s+/gu, '_'); // make name of thumbnail follow S3 naming conventions
 			const uploadRes = await supabaseThumbnailUpload('thumbnails', validName, thumbnail); // upload thumbnail to Supabase
 
-			// submitted article object
+			// create article data object
 			const articleData = {
 				link: values.link,
 				title: values.title,
@@ -64,6 +64,8 @@ export default function AddArticleForm() {
 				fileInput.value = '';
 			}
 
+			// Optimistically update the article list
+			onArticleAdded(articleData);
 			
 		} catch (err) {
 			console.error('Error creating article:', err);

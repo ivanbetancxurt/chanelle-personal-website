@@ -10,12 +10,24 @@ import AddArticleForm from './AddArticleForm';
 
 // todo: make responsive
 
-export default function Writing({ articles }: { articles: Articles[] }) {
+export default function WritingPage() {
+    const [articles, setArticles] = useState<Articles[]>([]); // state for articles
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
     const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
+
+    // fetch articles on component mount
+    useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`)
+            .then(res => {
+                if (!res.ok) throw new Error(`There was an error fetching articles: ${res.status}`);
+                return res.json();
+            })
+            .then(data => setArticles(data))
+            .catch(err => {console.error(err);});
+    }, []);
 
     // set isChan flag depending on the state of the cookie via api
     useEffect(() => { 
@@ -42,7 +54,10 @@ export default function Writing({ articles }: { articles: Articles[] }) {
                 )}
 
                 {addArticlePressed && !publicMode && (
-                    <AddArticleForm />
+                    <AddArticleForm onArticleAdded={(article) => {
+                        setArticles([...articles, article]); // optimistically add the article to the list
+                        setAddArticlePressed(false); // close the form
+                    }} />
                 )}
             </div>
         </>
