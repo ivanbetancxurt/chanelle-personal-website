@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import type { Articles } from '@/lib/generated/prisma';
 import { getURL, supabaseThumbnailUpload, yyyymmddToString } from '@/lib/utils';
 import * as yup from 'yup';
+import { error } from 'console';
 
 export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined); // state for uploaded thumbnail file
@@ -24,11 +25,6 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 		thumbnail: yup.string().required(),
 		thumbnailDescription: yup.string()
 	})
-
-	// update image state every time a file is chosen in the image input
-	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setThumbnail(e.target.files?.[0] ?? undefined);
-	}
 
 	// upload thumbnail to supabase and add article to table
 	async function handleSubmit(values: Articles, { resetForm, setSubmitting }: { resetForm: () => void, setSubmitting: (isSubmitting: boolean) => void }) {
@@ -93,12 +89,41 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 					handleSubmit(values, { resetForm, setSubmitting }); // submit the article
 				}}
 			>
-				{({ isSubmitting, errors, touched,  }) => {
+				{({ isSubmitting, errors, touched, isValid, dirty, setFieldError, setFieldTouched, setFieldValue }) => {
+					// update image state every time a file is chosen in the image input
+					function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+						const file = e.target.files?.[0];
+						setThumbnail(file ?? undefined); // set thumbnail state to uploaded file
+
+						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
+						if (file) {
+							setFieldValue('thumbnail', file.name); // tell formik the new value of the input
+							setFieldError('thumbnail', undefined); // image has been uploaded so there are no error
+						} else {
+							setFieldValue('thumbnail', ''); // tell formik there is no uploaded file
+							setFieldError('thumbnail', '💔 Cover photo is required!'); // set error message
+						}
+					}
+
+					// set formik helpers on click and blur of thumbnail input
+					function handleClickAndBlur() {
+						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
+
+						// set error if chanelle doesn't select a file
+						if (!thumbnail) {
+							setFieldError('thumbnail', '💔 Cover photo is required!');
+						} else {
+							setFieldError('thumbnail', undefined);
+						}
+					}
+
 					return (
-						<Form className='flex flex-col gap-2 text-2xl'>
+						<Form className='relative flex flex-col gap-2 text-2xl'>
 							<Field id='title' name='title' placeholder='Title' className='underline focus:outline-none rounded-md' />
+							{errors.title && touched.title ? (<p className='absolute text-sm text-red-500 mt-[30px]'>💔 Title is required!</p>) : null}
 
 							<Field id='link' name='link' placeholder='Link' className='underline focus:outline-none mt-5' />
+							{errors.link && touched.link ? (<p className='absolute text-sm text-red-500 mt-[90px]'>💔 Link is required!</p>) : null}
 
 							<label htmlFor='organization' className='mt-5'>Organization:</label>
 							<Field id='organization' name='organization' as='select' className='focus:outline-none cursor-pointer'>					
@@ -109,6 +134,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 
 							<label htmlFor='date' className='mt-5'>Date published:</label>
 							<Field id='date' name='date' type='date' className='focus:outline-none cursor-pointer' />
+							{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[290px]'>💔 Date is required!</p>) : null}
 
 							<label htmlFor='thumbnail' className='mt-5'>Cover photo:</label>
 							<input
@@ -117,16 +143,19 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 								type="file"
 								accept="image/*"
 								disabled={isSubmitting}
+								onClick={handleClickAndBlur}
+								onBlur={handleClickAndBlur}
 								onChange={handleChange}
 								className='text-xl'
 							/>
+							{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[383px]'>💔 Cover photo is required!</p>) : null}
 
 							<Field id='thumbnailDescription' name='thumbnailDescription' placeholder='Photo description (optional)' className='text-xl underline focus:outline-none'></Field>
 
 							<div className='flex justify-center'>
 								<button 
 									type='submit' 
-									disabled={isSubmitting}
+									disabled={isSubmitting || (!isValid)}
 									className='mt-5 bg-amber-200 hover:bg-amber-300 disabled:bg-gray-300 disabled:cursor-not-allowed py-1 px-2 w-fit rounded-lg'
 								>
 									{isSubmitting ? 'Adding...' : 'Add'}
