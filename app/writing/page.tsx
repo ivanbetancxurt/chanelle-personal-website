@@ -68,7 +68,10 @@ export default function WritingPage() {
 
                 {addArticlePressed && !publicMode && (
                     <AddArticleForm onArticleAdded={(article) => {
-                        setArticles([...articles, article]); // optimistically add the article to the list
+                         // optimistically add the article to the list
+                        const optimisticArticles = [...articles, article];
+                        setArticles(sortArticles(optimisticArticles)); 
+                        
                         setAddArticlePressed(false); // close the form
                     }} />
                 )}

@@ -3,7 +3,6 @@ import { Formik, Form, Field } from 'formik';
 import type { Articles } from '@/lib/generated/prisma';
 import { getURL, supabaseThumbnailUpload, yyyymmddToString } from '@/lib/utils';
 import * as yup from 'yup';
-import { error } from 'console';
 
 export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined); // state for uploaded thumbnail file
@@ -11,7 +10,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 	const initialValues: Articles = { // initial values for the form
 		link: '',
 		title: '',
-		organization: '',
+		organization: 'The Amherst Student',
 		date: '',
 		thumbnail: '',
 		thumbnailDescription: ''
@@ -20,7 +19,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 	const yupSchema = yup.object({ // validation schema
 		link: yup.string().required().url(),
 		title: yup.string().required(),
-		organization: yup.string().required(),
+		organization: yup.string().required().oneOf(['The Amherst Student', 'Santa Fe New Mexican', 'LANL']),
 		date: yup.string().required(),
 		thumbnail: yup.string().required(),
 		thumbnailDescription: yup.string()
@@ -28,8 +27,8 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 
 	// upload thumbnail to supabase and add article to table
 	async function handleSubmit(values: Articles, { resetForm, setSubmitting }: { resetForm: () => void, setSubmitting: (isSubmitting: boolean) => void }) {
-		if (!thumbnail) { //? needed?
-			alert('Sorry bae, please upload some cover art for your article! <3');
+		if (!thumbnail) {
+			console.error('Thumbnail upload is undefined.')
 			setSubmitting(false); // chanelle cannot submit so form is not submitting
 			return;
 		}
@@ -71,7 +70,6 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 			}
 
 			onArticleAdded(articleData); // optimistically update the article list
-			
 		} catch (err) {
 			console.error('Error creating article:', err);
 			alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${err}`);
@@ -123,7 +121,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 							{errors.title && touched.title ? (<p className='absolute text-sm text-red-500 mt-[30px]'>💔 Title is required!</p>) : null}
 
 							<Field id='link' name='link' placeholder='Link' className='underline focus:outline-none mt-5' />
-							{errors.link && touched.link ? (<p className='absolute text-sm text-red-500 mt-[90px]'>💔 Link is required!</p>) : null}
+							{errors.link && touched.link ? (<p className='absolute text-sm text-red-500 mt-[90px]'>💔 Link is required! Make sure it's valid!</p>) : null}
 
 							<label htmlFor='organization' className='mt-5'>Organization:</label>
 							<Field id='organization' name='organization' as='select' className='focus:outline-none cursor-pointer'>					
