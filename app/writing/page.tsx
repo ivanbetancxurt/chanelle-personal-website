@@ -18,6 +18,7 @@ export default function WritingPage() {
     const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
+    const [loading, setLoading] = useState<boolean>(true);
 
     // fetch articles on component mount
     useEffect(() => {
@@ -27,8 +28,14 @@ export default function WritingPage() {
                 return res.json();
             })
             .then(data => sortArticles(data)) 
-            .then(articles => setArticles(articles))
-            .catch(err => {console.error(err);});
+            .then(articles => {
+                setArticles(articles);
+                setLoading(false);
+            })
+            .catch(err => {
+                setLoading(false);
+                console.error(err);
+            });
     }, []);
 
     // set isChan flag depending on the state of the cookie via api
@@ -45,8 +52,12 @@ export default function WritingPage() {
     return (
         <>
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
-                <div className='absolute top-0 bottom-0 min-w-200'>
-                    <ArticleList articles={articles} search={search} organization={organization} />   
+                <div className='flex absolute top-0 bottom-0 min-w-200 justify-center'>
+                    {loading ? (
+                        <div className='animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-amber-200 mt-20'></div>
+                    ) : (
+                        <ArticleList articles={articles} search={search} organization={organization} />
+                    )}  
                 </div>     
                 
                 <ArticleFilterForm setSearch={setSearch} setOrganization={setOrganization} />
