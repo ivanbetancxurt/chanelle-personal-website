@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import type { Articles } from '@/lib/generated/prisma';
 import { getURL, supabaseThumbnailUpload, yyyymmddToString } from '@/lib/utils';
+import * as yup from 'yup';
 
 export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined); // state for uploaded thumbnail file
@@ -14,6 +15,15 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 		thumbnail: '',
 		thumbnailDescription: ''
 	}
+
+	const yupSchema = yup.object({ // validation schema
+		link: yup.string().required().url(),
+		title: yup.string().required(),
+		organization: yup.string().required(),
+		date: yup.string().required(),
+		thumbnail: yup.string().required(),
+		thumbnailDescription: yup.string()
+	})
 
 	// update image state every time a file is chosen in the image input
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -64,8 +74,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 				fileInput.value = '';
 			}
 
-			// Optimistically update the article list
-			onArticleAdded(articleData);
+			onArticleAdded(articleData); // optimistically update the article list
 			
 		} catch (err) {
 			console.error('Error creating article:', err);
@@ -79,11 +88,12 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 		<div className='absolute bg-gray-100 right-0 w-[260px] top-[100px] p-2 rounded-xl bottom-0'>
 			<Formik
 				initialValues={initialValues}
+				validationSchema={yupSchema}
 				onSubmit={(values, { resetForm, setSubmitting }) => {
 					handleSubmit(values, { resetForm, setSubmitting }); // submit the article
 				}}
 			>
-				{({ isSubmitting }) => {
+				{({ isSubmitting, errors, touched,  }) => {
 					return (
 						<Form className='flex flex-col gap-2 text-2xl'>
 							<Field id='title' name='title' placeholder='Title' className='underline focus:outline-none rounded-md' />
