@@ -47,7 +47,7 @@ export default function Resume() {
             </Document>
 
             
-            <a href={url} download="BetancourtIvan.pdf" className='font-bold text-2xl hover:underline'>
+            <a href='/api/downloadResume' className='font-bold text-2xl hover:underline'>
                 Download
             </a>
             
