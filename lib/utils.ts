@@ -11,9 +11,9 @@ export function cn(...inputs: ClassValue[]) {
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); // export supabase client
 
 // after the thumbnail is uploaded, get its URL for storing in the Articles table
-export function getURL(bucket: string, path: string) {
+export function getURL(path: string) {
     const { data } = supabase.storage
-        .from(bucket)
+        .from('thumbnails')
         .getPublicUrl(path);
     
     return data.publicUrl;

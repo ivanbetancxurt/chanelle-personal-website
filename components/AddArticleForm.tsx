@@ -60,7 +60,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 				title: values.title,
 				organization: values.organization,
 				date: yyyymmddToString(values.date),
-				thumbnail: getURL('thumbnails', uploadResJson.url),
+				thumbnail: getURL(uploadResJson.url),
 				thumbnailDescription: values.thumbnailDescription
 			};
 

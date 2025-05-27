@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { ReactTyped } from 'react-typed';
+import { getURL } from '@/lib/utils';
 
 export default function ProfileBanner() {
     return (
