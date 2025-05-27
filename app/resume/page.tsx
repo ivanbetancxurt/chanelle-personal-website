@@ -4,6 +4,7 @@ import { getURL } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
+import { TiDirections, TiDocumentAdd } from 'react-icons/ti';
 
 // dynamically import Document and Page from react-pdf
 const Document = dynamic(
@@ -51,7 +52,7 @@ export default function Resume() {
     }, []);
 
     return (
-        <div className='flex w-full'>
+        <div className='relative flex w-full'>
             <div className='flex flex-col w-full justify-center items-center gap-7'>
                 <a href={url} target='_blank' rel='noopener noreferrer'>
                     <Document
@@ -75,9 +76,12 @@ export default function Resume() {
                 </a>
             </div>
 
-            <div>
-                Update Resume
-            </div>
+            {isChan && !publicMode ? (
+                <div className='absolute flex right-[100px] top-8 bg-green-400 hover:bg-green-500 w-[260px] text-2xl justify-center items-center p-2 rounded-lg gap-1 cursor-pointer'>
+                    <TiDocumentAdd size={30} />
+                    Update Resume
+                </div>
+            ) : null}
         </div>
     );
 }
