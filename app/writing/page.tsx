@@ -1,13 +1,14 @@
 'use client'
 
+import React from 'react';
 import ArticleList from '@/components/ArticleList';
 import { useState, useEffect } from 'react';
-import AddArticleButton from '@/components/AddArticleButton';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
 import ArticleFilterForm from '@/components/FilterForm';
 import type { Articles } from '@/lib/generated/prisma';
 import AddArticleForm from '@/components/AddArticleForm';
 import { sortArticles } from '@/lib/utils';
+import { FaPlus } from 'react-icons/fa';
 
 // todo: make responsive
 
@@ -18,7 +19,8 @@ export default function WritingPage() {
     const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(true); // loading state for article list
+    const [addedMessageHidden, setAddedMessageHidden] = useState<boolean>(true); // flag for whether 'article added' message shows
 
     // fetch articles on component mount
     useEffect(() => {
@@ -63,7 +65,13 @@ export default function WritingPage() {
                 <ArticleFilterForm setSearch={setSearch} setOrganization={setOrganization} />
 
                 {isChan && !publicMode && (
-                    <AddArticleButton setPressed={setAddArticlePressed} />
+                    <button 
+                        className='absolute flex right-0 top-8 text-2xl w-[260px] cursor-pointer bg-green-400 hover:bg-green-500 justify-center items-center gap-1 p-2 rounded-lg'
+                        onClick={() => setAddArticlePressed(pressed => !pressed)}
+                    >
+                        <FaPlus size={20} />
+                        Add Article
+                    </button>
                 )}
 
                 {addArticlePressed && !publicMode && (
@@ -73,8 +81,15 @@ export default function WritingPage() {
                         setArticles(sortArticles(optimisticArticles)); 
 
                         setAddArticlePressed(false); // close the form
+
+                        // display 'Article applied!' message for 3 seconds after apply article is submitted
+                        setAddedMessageHidden(false);
+                        setTimeout(() => {
+                            setAddedMessageHidden(true);
+                        }, 3000);
                     }} />
                 )}
+
             </div>
         </>
     );

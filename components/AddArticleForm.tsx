@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined); // state for uploaded thumbnail file
-
+	
 	const initialValues: Articles = { // initial values for the form
 		link: '',
 		title: '',
@@ -124,50 +124,48 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 					}
 
 					return (
-						<Form className='relative flex flex-col gap-2 text-2xl'>
-							<Field id='title' name='title' placeholder='Title' className='underline focus:outline-none rounded-md' />
-							{errors.title && touched.title ? (<p className='absolute text-sm text-red-500 mt-[30px]'>💔 Title is required!</p>) : null}
+						<div className='flex flex-col'>
+							<Form className='relative flex flex-col gap-2 text-2xl'>
+								<Field id='title' name='title' placeholder='Title' className='underline focus:outline-none rounded-md' />
+								{errors.title && touched.title ? (<p className='absolute text-sm text-red-500 mt-[30px]'>💔 Title is required!</p>) : null}
+								<Field id='link' name='link' placeholder='Link' className='underline focus:outline-none mt-5' />
+								{errors.link && touched.link ? (<p className='absolute text-sm text-red-500 mt-[90px]'>💔 Link is required! Make sure it's valid!</p>) : null}
+								<label htmlFor='organization' className='mt-5'>Organization:</label>
+								<Field id='organization' name='organization' as='select' className='focus:outline-none cursor-pointer'>
+									<option>The Amherst Student</option>
+									<option>Santa Fe New Mexican</option>
+									<option>LANL</option>
+								</Field>
+								<label htmlFor='date' className='mt-5'>Date published:</label>
+								<Field id='date' name='date' type='date' className='focus:outline-none cursor-pointer' />
+								{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[290px]'>💔 Date is required!</p>) : null}
+								<label htmlFor='thumbnail' className='mt-5'>Cover photo:</label>
+								<input
+									id="thumbnail"
+									name="thumbnail"
+									type="file"
+									accept="image/*"
+									disabled={isSubmitting}
+									onClick={handleClickAndBlur}
+									onBlur={handleClickAndBlur}
+									onChange={handleChange}
+									className='text-xl'
+								/>
+								{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[383px]'>💔 Cover photo is required!</p>) : null}
+								<Field id='thumbnailDescription' name='thumbnailDescription' placeholder='Photo description (optional)' className='text-xl underline focus:outline-none' />
+								<div className='flex justify-center'>
+									<button
+										type='submit'
+										disabled={isSubmitting || (!isValid)}
+										className='mt-5 bg-amber-200 hover:bg-amber-300 disabled:bg-gray-300 disabled:cursor-not-allowed py-1 px-2 w-fit rounded-lg'
+									>
+										{isSubmitting ? 'Adding...' : 'Add'}
+									</button>
+								</div>
+							</Form>
 
-							<Field id='link' name='link' placeholder='Link' className='underline focus:outline-none mt-5' />
-							{errors.link && touched.link ? (<p className='absolute text-sm text-red-500 mt-[90px]'>💔 Link is required! Make sure it's valid!</p>) : null}
-
-							<label htmlFor='organization' className='mt-5'>Organization:</label>
-							<Field id='organization' name='organization' as='select' className='focus:outline-none cursor-pointer'>					
-								<option>The Amherst Student</option>
-								<option>Santa Fe New Mexican</option>
-								<option>LANL</option>
-							</Field>
-
-							<label htmlFor='date' className='mt-5'>Date published:</label>
-							<Field id='date' name='date' type='date' className='focus:outline-none cursor-pointer' />
-							{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[290px]'>💔 Date is required!</p>) : null}
-
-							<label htmlFor='thumbnail' className='mt-5'>Cover photo:</label>
-							<input
-								id="thumbnail"
-								name="thumbnail"
-								type="file"
-								accept="image/*"
-								disabled={isSubmitting}
-								onClick={handleClickAndBlur}
-								onBlur={handleClickAndBlur}
-								onChange={handleChange}
-								className='text-xl'
-							/>
-							{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[383px]'>💔 Cover photo is required!</p>) : null}
-
-							<Field id='thumbnailDescription' name='thumbnailDescription' placeholder='Photo description (optional)' className='text-xl underline focus:outline-none'></Field>
-
-							<div className='flex justify-center'>
-								<button 
-									type='submit' 
-									disabled={isSubmitting || (!isValid)}
-									className='mt-5 bg-amber-200 hover:bg-amber-300 disabled:bg-gray-300 disabled:cursor-not-allowed py-1 px-2 w-fit rounded-lg'
-								>
-									{isSubmitting ? 'Adding...' : 'Add'}
-								</button>
-							</div>
-						</Form>
+							<p className='text-sm text-green-400'>Article added!</p>
+						</div>
 					);
 				}}
 			</Formik>
