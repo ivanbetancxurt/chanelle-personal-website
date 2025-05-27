@@ -33,7 +33,7 @@ export default function Resume() {
 
     // fetch and set url
     useEffect(() => {
-        setUrl(getURL('thumbnails', 'BetancourtIvan.pdf'));
+        setUrl(getURL('BetancourtIvan.pdf'));
     }, []); 
 
     return (

@@ -12,11 +12,11 @@ export default function ProfileBanner() {
                     hidden md:flex shadow-2xl flex-shrink-0'
                 >
                     <Image 
-                        src='/headshot1.jpg' 
+                        src='https://ceksxnfsszwkadypmabe.supabase.co/storage/v1/object/public/thumbnails//headshot2.webp' 
                         alt="Chanelle's profile picture" 
                         fill 
                         className='object-cover object-top' 
-                        style={{objectPosition: '50% 20%'}}
+                        style={{objectPosition: '50% 10%'}}
                     />
                 </div>
                 <div className='flex flex-col h-[100px] px-8 justify-evenly'>
