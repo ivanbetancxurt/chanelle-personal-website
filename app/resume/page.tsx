@@ -44,12 +44,14 @@ export default function Resume() {
                     loading={<div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200 mt-[100px]' />}
                     className='bg-gray-200 p-3 rounded-2xl hover:bg-gray-300'
                 >
-                    <Page
-                        pageNumber={1}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        height={525}
-                    />
+                    <div className='overflow-hidden rounded-xl'>
+                        <Page
+                            pageNumber={1}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                            height={525}
+                        />
+                    </div>
                 </Document>
             </a>
 
