@@ -153,7 +153,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 									onClick={handleClickAndBlur}
 									onBlur={handleClickAndBlur}
 									onChange={handleChange}
-									className='text-xl'
+									className='text-xl cursor-pointer'
 								/>
 								{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[383px]'>💔 Cover photo is required!</p>) : null}
 
