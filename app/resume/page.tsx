@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
 import { TiDirections, TiDocumentAdd } from 'react-icons/ti';
+import UpdateResumeForm from "@/components/UpdateResumeForm";
 
 // dynamically import Document and Page from react-pdf
 const Document = dynamic(
@@ -33,7 +34,9 @@ if (typeof window !== 'undefined') {
 export default function Resume() {
     const [url, setUrl] = useState<string>(''); // state for resume url
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
-    const { publicMode } = useViewModeContext();
+    const { publicMode } = useViewModeContext(); // get mode context for the update resume button
+    const [updateResumePressed, setUpdateResumePressed] = useState<boolean>(false); // pressed state for update resume button
+
 
     // fetch and set url of resume
     useEffect(() => {
@@ -77,10 +80,17 @@ export default function Resume() {
             </div>
 
             {isChan && !publicMode ? (
-                <div className='absolute flex right-[100px] top-8 bg-green-400 hover:bg-green-500 w-[260px] text-2xl justify-center items-center p-2 rounded-lg gap-1 cursor-pointer'>
+                <button 
+                    onClick={() => setUpdateResumePressed(pressed => !pressed)}
+                    className='absolute flex right-[100px] top-8 bg-green-400 hover:bg-green-500 w-[260px] text-2xl justify-center items-center p-2 rounded-lg gap-1 cursor-pointer'
+                >
                     <TiDocumentAdd size={30} />
                     Update Resume
-                </div>
+                </button>
+            ) : null}
+
+            {updateResumePressed && !publicMode ? (
+                <UpdateResumeForm />
             ) : null}
         </div>
     );

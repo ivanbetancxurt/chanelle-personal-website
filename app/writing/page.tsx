@@ -16,9 +16,9 @@ export default function WritingPage() {
     const [articles, setArticles] = useState<Articles[]>([]); // state for articles
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
-    const { publicMode } = useViewModeContext(); // get mode context for the AddArticle button
+    const { publicMode } = useViewModeContext(); // get mode context for the add article button
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
-    const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for AddArticle button
+    const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for add article button
     const [loading, setLoading] = useState<boolean>(true); // loading state for article list
     const [addedMessageHidden, setAddedMessageHidden] = useState<boolean>(true); // flag for whether 'article added' message shows
 
