@@ -90,6 +90,12 @@ export default function WritingPage() {
                     }} />
                 )}
 
+                <p 
+                    hidden={addedMessageHidden}
+                    className='absolute text-green-400 text-sm right-[90px] top-[90px]'
+                >
+                    Article added!
+                </p>
             </div>
         </>
     );
