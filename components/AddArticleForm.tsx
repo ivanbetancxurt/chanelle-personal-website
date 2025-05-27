@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import type { Articles } from '@/lib/generated/prisma';
-import { getURL, supabaseThumbnailUpload, yyyymmddToString } from '@/lib/utils';
+import { getURL, yyyymmddToString } from '@/lib/utils';
 import * as yup from 'yup';
 
 export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (article: Articles) => void}) {
@@ -23,10 +23,11 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 		date: yup.string().required(),
 		thumbnail: yup.string().required(),
 		thumbnailDescription: yup.string()
-	})
+	});
 
 	// upload thumbnail to supabase and add article to table
 	async function handleSubmit(values: Articles, { resetForm, setSubmitting }: { resetForm: () => void, setSubmitting: (isSubmitting: boolean) => void }) {
+		// null checking thumbnail so that typescript doesn't whine
 		if (!thumbnail) {
 			console.error('Thumbnail upload is undefined.')
 			setSubmitting(false); // chanelle cannot submit so form is not submitting
@@ -35,7 +36,23 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 
 		try {
 			const validName = thumbnail.name.replace(/\s+/gu, '_'); // make name of thumbnail follow S3 naming conventions
-			const uploadRes = await supabaseThumbnailUpload('thumbnails', validName, thumbnail); // upload thumbnail to Supabase
+
+			// create form data for thumbnail that the upload endpoint expects
+			const thumbanailFormData = new FormData();
+			thumbanailFormData.append('file', thumbnail);
+			thumbanailFormData.append('fileName', validName);
+
+			// upload thumbnail to Supabase
+			const uploadRes = await fetch('/api/supabase/storage', {
+				method: 'POST',
+				body: thumbanailFormData
+			});
+
+			if (!uploadRes.ok) {
+				throw new Error(`There was an error uploading thumbnail to storage: ${uploadRes.status}`);
+			}
+
+			const uploadResJson = await uploadRes.json(); // parse json response
 
 			// create article data object
 			const articleData = {
@@ -43,12 +60,12 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 				title: values.title,
 				organization: values.organization,
 				date: yyyymmddToString(values.date),
-				thumbnail: getURL('thumbnails', uploadRes.path),
+				thumbnail: getURL('thumbnails', uploadResJson.url),
 				thumbnailDescription: values.thumbnailDescription
 			};
 
 			// submit article to API
-			await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`, {
+			await fetch('/api/supabase/articles', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -60,15 +77,6 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 
 			resetForm(); // reset the form to initial values
 			setThumbnail(undefined); // clear thumbnail state
-			
-
-			//? what is this?
-			// Clear the file input
-			const fileInput = document.getElementById('thumbnail') as HTMLInputElement;
-			if (fileInput) {
-				fileInput.value = '';
-			}
-
 			onArticleAdded(articleData); // optimistically update the article list
 		} catch (err) {
 			console.error('Error creating article:', err);
@@ -87,7 +95,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 					handleSubmit(values, { resetForm, setSubmitting }); // submit the article
 				}}
 			>
-				{({ isSubmitting, errors, touched, isValid, dirty, setFieldError, setFieldTouched, setFieldValue }) => {
+				{({ isSubmitting, errors, touched, isValid, setFieldError, setFieldTouched, setFieldValue }) => {
 					// update image state every time a file is chosen in the image input
 					function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 						const file = e.target.files?.[0];

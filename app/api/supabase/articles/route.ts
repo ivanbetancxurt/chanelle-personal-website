@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json(newArticle);
     } catch(err) {
-        console.error('POST /api/articles error: ', err); // log the error...
+        console.error('POST /api/supabase/articles error: ', err); // log the error...
         return NextResponse.json({ // ...and return it as a json
             error: err || 'Unknown error' 
         });

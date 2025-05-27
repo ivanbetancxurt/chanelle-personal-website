@@ -22,7 +22,7 @@ export default function WritingPage() {
 
     // fetch articles on component mount
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`)
+        fetch('/api/supabase/articles')
             .then(res => {
                 if (!res.ok) throw new Error(`There was an error fetching articles: ${res.status}`);
                 return res.json();

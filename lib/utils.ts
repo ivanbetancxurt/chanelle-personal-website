@@ -2,26 +2,13 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { Articles } from "./generated/prisma";
 import ordinal from 'ordinal';
-import {createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); // export supabase client
-
-// upload cover art to supabase storage bucket
-export async function supabaseThumbnailUpload(bucket: string, fileName: string, file: File) {
-    const { data, error } = await supabase.storage
-        .from(bucket)
-        .upload(fileName, file);
-
-    if (error) {
-        alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${error.message}`);
-        throw new Error(`There was an issue uploading thumbnail to Supabase: ${error.message}`);
-    }
-    return data;
-}
 
 // after the thumbnail is uploaded, get its URL for storing in the Articles table
 export function getURL(bucket: string, path: string) {
