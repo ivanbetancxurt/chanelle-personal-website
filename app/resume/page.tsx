@@ -89,16 +89,15 @@ export default function Resume() {
                 </a>
             </div>
 
-            {isChan && !publicMode ? (
-                <button 
-                    onClick={() => setUpdateResumePressed(pressed => !pressed)}
-                    className='absolute flex right-[100px] top-8 bg-green-400 hover:bg-green-500 w-[260px] text-2xl justify-center items-center p-2 rounded-lg gap-1 cursor-pointer'
-                >
-                    <TiDocumentAdd size={30} />
-                    Update Resume
-                </button>
-            ) : null}
-
+            <button 
+                onClick={() => setUpdateResumePressed(pressed => !pressed)}
+                hidden={!isChan || publicMode}
+                className='absolute flex right-[100px] top-8 bg-green-400 hover:bg-green-500 w-[260px] text-2xl justify-center items-center p-2 rounded-lg gap-1 cursor-pointer'
+            >
+                <TiDocumentAdd size={30} />
+                Update Resume
+            </button>
+            
             {updateResumePressed && !publicMode ? (
                 <UpdateResumeForm onResumeUpdated={() => {
                     setUpdateResumePressed(false); // close the form

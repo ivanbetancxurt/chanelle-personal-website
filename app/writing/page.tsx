@@ -64,15 +64,14 @@ export default function WritingPage() {
                 
                 <ArticleFilterForm setSearch={setSearch} setOrganization={setOrganization} />
 
-                {isChan && !publicMode && (
-                    <button 
-                        className='absolute flex right-0 top-8 text-2xl w-[260px] cursor-pointer bg-green-400 hover:bg-green-500 justify-center items-center gap-1 p-2 rounded-lg'
-                        onClick={() => setAddArticlePressed(pressed => !pressed)}
-                    >
-                        <FaPlus size={20} />
-                        Add Article
-                    </button>
-                )}
+                <button 
+                    onClick={() => setAddArticlePressed(pressed => !pressed)}
+                    hidden={!isChan || publicMode}
+                    className='absolute flex right-0 top-8 text-2xl w-[260px] cursor-pointer bg-green-400 hover:bg-green-500 justify-center items-center gap-1 p-2 rounded-lg'
+                >
+                    <FaPlus size={20} />
+                    Add Article
+                </button>
 
                 {addArticlePressed && !publicMode && (
                     <AddArticleForm onArticleAdded={(article) => {
