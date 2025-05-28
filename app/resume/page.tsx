@@ -36,6 +36,7 @@ export default function Resume() {
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const { publicMode } = useViewModeContext(); // get mode context for the update resume button
     const [updateResumePressed, setUpdateResumePressed] = useState<boolean>(false); // pressed state for update resume button
+    const [updatedMessageHidden, setUpdatedMessageHidden] = useState<boolean>(true); // flag for whether 'resume updated' message shows
     
     // fetch and set url of resume with cache busting
     function getUpdatedResume() {
@@ -102,8 +103,21 @@ export default function Resume() {
                 <UpdateResumeForm onResumeUpdated={() => {
                     setUpdateResumePressed(false); // close the form
                     getUpdatedResume(); // update displayed resume
+
+                    // display 'Resume updated!' message for 3 seconds after resume is submitted
+                    setUpdatedMessageHidden(false);
+                    setTimeout(() => {
+                        setUpdatedMessageHidden(true);
+                    }, 3000);
                 }} />
             ) : null}
+
+            <p
+                hidden={updatedMessageHidden}
+                className='absolute text-green-400 text-sm right-[170px] top-[90px]'
+            >
+                Resume updated!
+            </p>
         </div>
     );
 }
