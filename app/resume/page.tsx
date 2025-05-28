@@ -68,7 +68,11 @@ export default function Resume() {
                 <a href={url} target='_blank' rel='noopener noreferrer'>
                     <Document
                         file={url}
-                        loading={<div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200 mt-[100px]' />}
+                        loading={
+                            <div className='bg-gray-200 p-3 rounded-2xl hover:bg-gray-300 flex items-center justify-center w-[408px] h-[531px]'>
+                                <div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200' />
+                            </div>
+                        }
                         className='bg-gray-200 p-3 rounded-2xl hover:bg-gray-300'
                     >
                         <div className='overflow-hidden rounded-xl'>
@@ -114,7 +118,7 @@ export default function Resume() {
 
             <p
                 hidden={updatedMessageHidden}
-                className='absolute text-green-400 text-sm right-[170px] top-[90px]'
+                className='absolute text-green-400 text-sm right-[170px] top-[80px]'
             >
                 Resume updated!
             </p>
