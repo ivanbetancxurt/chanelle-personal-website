@@ -4,10 +4,12 @@ import { NextRequest, NextResponse } from 'next/server';
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!); // initialize supabase client
 
 // downloads resume for the user
-export async function GET() {
+export async function GET(request: NextRequest) {
     try {
-        const res = await fetch('https://ceksxnfsszwkadypmabe.supabase.co/storage/v1/object/public/thumbnails//BetancourtIvan.pdf'); // fetch resume
+        const url = request.nextUrl.searchParams.get('url'); // get the url of the updated resume passed through as a query parameter
+        if (!url) throw new Error("'url' query parameter for downloading was not provided.");
 
+        const res = await fetch(url); // fetch resume
         if (!res.ok) throw new Error(`There was an error fetching Chanelle's resume: ${res.status}`);
 
         // get pdf buffer and return to client with download header

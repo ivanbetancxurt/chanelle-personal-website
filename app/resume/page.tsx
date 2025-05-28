@@ -36,12 +36,16 @@ export default function Resume() {
     const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
     const { publicMode } = useViewModeContext(); // get mode context for the update resume button
     const [updateResumePressed, setUpdateResumePressed] = useState<boolean>(false); // pressed state for update resume button
-
-
-    // fetch and set url of resume
-    useEffect(() => {
+    
+    // fetch and set url of resume with cache busting
+    function getUpdatedResume() {
         const timestamp = Date.now(); // get current time 
-        setUrl(`${getURL('BetancourtIvan.pdf')}?v=${timestamp}`);
+        setUrl(`${getURL('BetancourtIvan.pdf')}?v=${timestamp}`); // set the url with a unique parameter to bust cache
+    }
+
+    // get resume on mount
+    useEffect(() => {
+        getUpdatedResume();
     }, []); 
 
     // set isChan flag depending on the state of the cookie via api
@@ -54,6 +58,8 @@ export default function Resume() {
             .then(({ isChan }) => setIsChan(isChan))
             .catch(err => {console.error(err);});
     }, []);
+
+    const downloadEndpoint = `/api/supabase/resume?url=${url}`;
 
     return (
         <div className='relative flex w-full'>
@@ -75,7 +81,10 @@ export default function Resume() {
                     </Document>
                 </a>
 
-                <a href='/api/resume' className='font-bold text-2xl hover:underline'>
+                <a
+                    href={downloadEndpoint} 
+                    className='font-bold text-2xl hover:underline cursor-pointer'
+                >
                     Download
                 </a>
             </div>
@@ -91,7 +100,10 @@ export default function Resume() {
             ) : null}
 
             {updateResumePressed && !publicMode ? (
-                <UpdateResumeForm />
+                <UpdateResumeForm onResumeUpdated={() => {
+                    setUpdateResumePressed(false); // close the form
+                    getUpdatedResume(); // update displayed resume
+                }} />
             ) : null}
         </div>
     );

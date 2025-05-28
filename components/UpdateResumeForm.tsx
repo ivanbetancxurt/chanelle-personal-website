@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 
-export default function UpdateResumeForm() {
+export default function UpdateResumeForm({ onResumeUpdated }: { onResumeUpdated: () => void }) {
     const [resume, setResume] = useState<File | undefined>(undefined); // state for uploaded resume file
 
     // validation schema
