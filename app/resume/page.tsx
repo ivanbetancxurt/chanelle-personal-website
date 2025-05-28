@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
 import { TiDocumentAdd } from 'react-icons/ti';
-import UpdateResumeForm from "@/components/UpdateResumeForm";
+import UpdateResumeForm from '@/components/UpdateResumeForm';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 // dynamically import Document and Page from react-pdf
 const Document = dynamic(
@@ -33,7 +34,7 @@ if (typeof window !== 'undefined') {
 
 export default function Resume() {
     const [url, setUrl] = useState<string>(''); // state for resume url
-    const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
+    const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const { publicMode } = useViewModeContext(); // get mode context for the update resume button
     const [updateResumePressed, setUpdateResumePressed] = useState<boolean>(false); // pressed state for update resume button
     const [updatedMessageHidden, setUpdatedMessageHidden] = useState<boolean>(true); // flag for whether 'resume updated' message shows
@@ -48,17 +49,6 @@ export default function Resume() {
     useEffect(() => {
         getUpdatedResume();
     }, []); 
-
-    // set isChan flag depending on the state of the cookie via api
-    useEffect(() => { 
-        fetch('/api/amChan')
-            .then(res => {
-                if (!res.ok) throw new Error(`There was an error fetching who you are: ${res.status}`);
-                return res.json();
-            })
-            .then(({ isChan }) => setIsChan(isChan))
-            .catch(err => {console.error(err);});
-    }, []);
 
     const downloadEndpoint = `/api/supabase/resume?url=${url}`;
 

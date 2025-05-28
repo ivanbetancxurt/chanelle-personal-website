@@ -9,6 +9,7 @@ import type { Articles } from '@/lib/generated/prisma';
 import AddArticleForm from '@/components/AddArticleForm';
 import { sortArticles } from '@/lib/utils';
 import { FaPlus } from 'react-icons/fa';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 // todo: make responsive
 
@@ -17,7 +18,7 @@ export default function WritingPage() {
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
     const { publicMode } = useViewModeContext(); // get mode context for the add article button
-    const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
+    const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for add article button
     const [loading, setLoading] = useState<boolean>(true); // loading state for article list
     const [addedMessageHidden, setAddedMessageHidden] = useState<boolean>(true); // flag for whether 'article added' message shows
@@ -38,17 +39,6 @@ export default function WritingPage() {
                 setLoading(false);
                 console.error(err);
             });
-    }, []);
-
-    // set isChan flag depending on the state of the cookie via api
-    useEffect(() => { 
-        fetch('/api/amChan')
-            .then(res => {
-                if (!res.ok) throw new Error(`There was an error fetching who you are: ${res.status}`);
-                return res.json();
-            })
-            .then(({ isChan }) => setIsChan(isChan))
-            .catch(err => {console.error(err);});
     }, []);
 
     return (

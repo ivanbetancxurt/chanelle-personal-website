@@ -4,22 +4,12 @@ import { useState, useEffect } from 'react';
 import Experience from '@/components/Experience';
 import ProfileBanner from '@/components/ProfileBanner';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 export default function Home() {
     const [isEditing, setIsEditing] = useState<boolean>(false); // flag for whether chanelle is editing the bio
     const { publicMode } = useViewModeContext(); // get mode context for the editable bio
-    const [isChan, setIsChan] = useState<boolean>(false); // flag for whether this is chanelle
-
-    // set isChan flag depending on the state of the cookie via api
-    useEffect(() => { 
-        fetch('/api/amChan')
-            .then(res => {
-                if (!res.ok) throw new Error(`There was an error fetching who you are: ${res.status}`);
-                return res.json();
-            })
-            .then(({ isChan }) => setIsChan(isChan))
-            .catch(err => {console.error(err);});
-    }, []);
+    const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
 
     return (
         <>
