@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         const resume = formData.get('file') as File; // get thumbnail file from form data
 
         if (!resume) {
-            return NextResponse.json({ error: 'No resume provided to API.'});
+            return NextResponse.json({ error: 'No resume provided for replacment.'});
         }
 
         const resumeBuffer = await resume.arrayBuffer(); // get array buffer to uplaod to supabase
