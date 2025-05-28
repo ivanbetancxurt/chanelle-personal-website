@@ -139,27 +139,42 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 									<option>LANL</option>
 								</Field>
 
-								<label htmlFor='date' className='mt-5'>Date published:</label>
+								<label htmlFor='date' className='mt-3'>Date published:</label>
 								<Field id='date' name='date' type='date' className='focus:outline-none cursor-pointer' />
-								{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[290px]'>💔 Date is required!</p>) : null}
+								{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[280px]'>💔 Date is required!</p>) : null}
 
-								<label htmlFor='thumbnail' className='mt-5'>Cover photo:</label>
-								<input
-									id="thumbnail"
-									name="thumbnail"
-									type="file"
-									accept="image/*"
-									disabled={isSubmitting}
-									onClick={handleClickAndBlur}
-									onBlur={handleClickAndBlur}
-									onChange={handleChange}
-									className='text-xl cursor-pointer'
-								/>
-								{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[383px]'>💔 Cover photo is required!</p>) : null}
+								<label htmlFor='thumbnail' className='mt-3'>Cover photo:</label>
+								<div className='relative'>
+									<input
+										id="thumbnail"
+										name="thumbnail"
+										type="file"
+										accept="image/*"
+										disabled={isSubmitting}
+										onClick={handleClickAndBlur}
+										onBlur={handleClickAndBlur}
+										onChange={handleChange}
+										className='bg-blue-400 absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed'
+									/>
+									<div className={`
+										flex items-center justify-center gap-2 p-3 border-2 border-dashed rounded-lg
+										${thumbnail ? 'border-green-400 bg-green-50' : 'border-gray-300 bg-gray-50'}
+										hover:border-amber-300 hover:bg-amber-50 transition-colors
+										${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+									`}>
+										<svg className='w-5 h-5 text-gray-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+											<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12' />
+										</svg>
+										<span className='text-sm'>
+											{thumbnail ? thumbnail.name : 'Choose cover photo'}
+										</span>
+									</div>
+								</div>
+								{errors.thumbnail && touched.thumbnail ? (<p className='absolute text-sm text-red-500 mt-[390px]'>💔 Cover photo is required!</p>) : null}
 
-								<Field id='thumbnailDescription' name='thumbnailDescription' placeholder='Photo description (optional)' className='text-xl underline focus:outline-none' />
+								<Field id='thumbnailDescription' name='thumbnailDescription' placeholder='Photo description (optional)' className='text-xl underline focus:outline-none mt-2' />
 								
-								<div className='flex justify-center'>
+								<div className='absolute left-1/2 -translate-x-1/2 top-[445px] flex justify-center'>
 									<button
 										type='submit'
 										disabled={isSubmitting || (!isValid)}
