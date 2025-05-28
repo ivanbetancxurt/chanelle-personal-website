@@ -17,7 +17,7 @@ export default function ArticleList({ articles, setArticles, search, organizatio
     );
 
     return (
-        <div className='bg-gray-100 flex flex-col w-full rounded-3xl p-5 gap-2 overflow-y-auto max-h-full'>
+        <div className='bg-gray-100 flex flex-col w-full rounded-3xl p-5 gap-2 overflow-y-auto max-h-fit'>
             {filteredArticles.length > 0 ? (
                 filteredArticles.map((article, i) => (
                     <Article 
