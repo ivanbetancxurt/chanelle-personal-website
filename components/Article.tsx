@@ -7,7 +7,13 @@ export default function Article({ article }: { article: Articles }) {
         <a href={article.link} target='_blank' rel='noopener noreferrer'>
             <div className='flex w-full gap-2 hover:bg-gray-200 p-3 rounded-2xl'>
                 <div className='relative h-[80px] w-[80px] rounded-xl overflow-hidden aspect-square'>
-                    <Image src={article.thumbnail} alt={article.thumbnailDescription} fill className='object-cover'/>
+                    <Image 
+                        src={article.thumbnail} 
+                        alt={article.thumbnailDescription} 
+                        fill
+                        sizes='80px'
+                        className='object-cover'
+                    />
                 </div>
             
                 <div className='flex flex-col'>
