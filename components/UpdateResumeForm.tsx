@@ -36,6 +36,7 @@ export default function UpdateResumeForm({ onResumeUpdated }: { onResumeUpdated:
 
             resetForm(); // reset the form to initial values
 			setResume(undefined); // clear thumbnail state
+            onResumeUpdated();
         } catch(err) {
             console.error('Error updating resume:', err);
 			alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${err}`);
