@@ -9,7 +9,7 @@ export async function GET() {
 
         return NextResponse.json({ isChan }); // return { 'isChan': true }
     } catch(err) {
-        console.error('GET api/amChan error: ', err); // log the error...
+        console.error('GET api/server/amChan error: ', err); // log the error...
         return NextResponse.json({ // ...and return it as a json
             error: err || 'Unknown error'
         });

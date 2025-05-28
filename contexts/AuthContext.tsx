@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // set isChan flag by getting the state of the cookie via api
     useEffect(() => {
-        fetch('/api/amChan')
+        fetch('/api/server/amChan')
             .then(res => res.json())
             .then(({ isChan }) => setIsChan(isChan))
             .catch(err => {
@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // delete chanelle's cookie
     const logout = async () => {
         try {
-            const response = await fetch('/api/setChan', { 
+            const response = await fetch('/api/server/setChan', { 
                 method: 'DELETE' 
             });
             
