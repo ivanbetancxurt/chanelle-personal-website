@@ -70,7 +70,9 @@ export default function Article({ article, isChan, onArticleDeleted }: { article
                         onClick={handleDelete}
                         className={`ml-2 cursor-pointer ${isDeleting ? 'text-gray-400 cursor-not-allowed' : 'text-red-400 hover:text-red-600'}`}
                     />
-                ) : <div className='animate-spin rounded-full h-10 w-10 border-7 border-gray-300 border-t-amber-200' />}
+                ) : null}
+
+                <div className='animate-spin rounded-full h-10 w-10 border-7 border-gray-300 border-t-amber-200' hidden={!isDeleting} /> 
             </div>
         </a>
     );
