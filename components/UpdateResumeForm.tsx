@@ -10,12 +10,48 @@ export default function UpdateResumeForm() {
         resume: yup.string().required()
     });
 
+    // update resume 
+    async function handleSubmit({ resetForm, setSubmitting }: { resetForm: () => void, setSubmitting: (isSubmitting: boolean) => void }) {
+        // null checking resume so that typescript doesn't whine
+        if (!resume) {
+            console.error('Resume upload value is undefined.')
+			setSubmitting(false); // chanelle cannot submit so form is not submitting
+			return;
+        }
+
+        try {
+            // create form data for resume that the upload endpoint expects
+			const resumeFormData = new FormData();
+			resumeFormData.append('file', resume);
+
+            // upload thumbnail to Supabase
+			const uploadRes = await fetch('/api/supabase/resume', {
+				method: 'POST',
+				body: resumeFormData
+			});
+
+            if (!uploadRes.ok) {
+                throw new Error(`There was an error updating resume: ${uploadRes.status}`);
+            }
+
+            resetForm(); // reset the form to initial values
+			setResume(undefined); // clear thumbnail state
+        } catch(err) {
+            console.error('Error updating resume:', err);
+			alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${err}`);
+        } finally {
+            setSubmitting(false); // form is submitted
+        }
+    }
+
     return (
         <div className='absolute flex right-[100px] top-[100px] w-[260px] bg-gray-100 p-3 rounded-xl'>
             <Formik
                 initialValues={{ resume: '' }}
                 validationSchema={yupSchema}
-                onSubmit={() => {}}
+                onSubmit={(values, { resetForm, setSubmitting }) => {
+                    handleSubmit({ resetForm, setSubmitting });
+                }}
             >
                 {({ isSubmitting, setFieldValue, setFieldError, setFieldTouched, isValid, errors, touched }) => {
                     // update resume state every time a file is chosen in the input

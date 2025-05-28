@@ -4,7 +4,7 @@ import { getURL } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
-import { TiDirections, TiDocumentAdd } from 'react-icons/ti';
+import { TiDocumentAdd } from 'react-icons/ti';
 import UpdateResumeForm from "@/components/UpdateResumeForm";
 
 // dynamically import Document and Page from react-pdf
@@ -40,7 +40,8 @@ export default function Resume() {
 
     // fetch and set url of resume
     useEffect(() => {
-        setUrl(getURL('BetancourtIvan.pdf'));
+        const timestamp = Date.now(); // get current time 
+        setUrl(`${getURL('BetancourtIvan.pdf')}?v=${timestamp}`);
     }, []); 
 
     // set isChan flag depending on the state of the cookie via api
@@ -74,7 +75,7 @@ export default function Resume() {
                     </Document>
                 </a>
 
-                <a href='/api/downloadResume' className='font-bold text-2xl hover:underline'>
+                <a href='/api/resume' className='font-bold text-2xl hover:underline'>
                     Download
                 </a>
             </div>

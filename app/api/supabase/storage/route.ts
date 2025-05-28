@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); // export supabase client
 
+// store the provided image into storage and return its name (URL)
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData(); // get form data from request
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
 
         if (error) {
             return NextResponse.json({ 
-                error: `Upload to storage failed: ${error.message}` 
+                error: `Uploading thumbnial to storage failed: ${error.message}` 
             });
         }
         

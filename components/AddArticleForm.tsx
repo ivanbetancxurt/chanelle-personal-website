@@ -29,23 +29,23 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 	async function handleSubmit(values: Articles, { resetForm, setSubmitting }: { resetForm: () => void, setSubmitting: (isSubmitting: boolean) => void }) {
 		// null checking thumbnail so that typescript doesn't whine
 		if (!thumbnail) {
-			console.error('Thumbnail upload is undefined.')
+			console.error('Thumbnail upload value is undefined.')
 			setSubmitting(false); // chanelle cannot submit so form is not submitting
 			return;
 		}
 
 		try {
-			const validName = thumbnail.name.replace(/\s+/gu, '_'); // make name of thumbnail follow S3 naming conventions
+			const validName = values.thumbnail.replace(/\s+/gu, '_'); // make name of thumbnail follow S3 naming conventions
 
 			// create form data for thumbnail that the upload endpoint expects
-			const thumbanailFormData = new FormData();
-			thumbanailFormData.append('file', thumbnail);
-			thumbanailFormData.append('fileName', validName);
+			const thumbnailFormData = new FormData();
+			thumbnailFormData.append('file', thumbnail);
+			thumbnailFormData.append('fileName', validName);
 
 			// upload thumbnail to Supabase
 			const uploadRes = await fetch('/api/supabase/storage', {
 				method: 'POST',
-				body: thumbanailFormData
+				body: thumbnailFormData
 			});
 
 			if (!uploadRes.ok) {
