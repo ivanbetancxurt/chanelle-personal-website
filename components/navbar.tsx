@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/menubar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ModeButton from '@/components/ModeButton';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
 import { SlGlobe } from "react-icons/sl";
@@ -17,6 +17,7 @@ export default function NavBar() {
     const path = usePathname(); // get current route to determine navbar state
     const { publicMode, toggleMode } = useViewModeContext(); // get view mode flag and toggle function from view mode context
     const { isChan, logout } = useAuthContext(); // get chanelle's cookie state and logout function from auth context
+    const [loading, setLoading] = useState<boolean>(); // loading state for delete cookie button
  
     return (
         <>
@@ -48,13 +49,22 @@ export default function NavBar() {
                 )
             ) : null}
 
-            <button 
-                onClick={logout}
-                hidden={!isChan}
-                className='absolute flex items-center left-15 bg-teal-300 hover:bg-teal-400 cursor-pointer h-9 p-2 rounded-lg'
-            >
-                <SlGlobe size={25}  />
-            </button>
+            {
+            loading ? (
+                <div className='animate-spin rounded-full h-10 w-10 border-7 border-gray-300 border-t-amber-200' /> 
+            ) : (
+                <button 
+                    onClick={() => {
+                        setLoading(true);
+                        logout();
+                        setLoading(false);
+                    }}
+                    hidden={!isChan}
+                    className='absolute flex items-center left-15 bg-teal-300 hover:bg-teal-400 cursor-pointer h-9 p-2 rounded-lg'
+                >
+                    <SlGlobe size={25}  />
+                </button>
+            )}
         </>
     );
 }
