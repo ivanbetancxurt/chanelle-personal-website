@@ -30,9 +30,9 @@ export default function WritingPage() {
                 if (!res.ok) throw new Error(`There was an error fetching articles: ${res.status}`);
                 return res.json();
             })
-            .then(data => sortArticles(data)) 
-            .then(articles => {
-                setArticles(articles);
+            .then(data => {
+                const articles = Array.isArray(data) ? data : [];
+                setArticles(sortArticles(articles));
                 setLoading(false);
             })
             .catch(err => {
