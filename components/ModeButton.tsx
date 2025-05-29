@@ -14,7 +14,10 @@ export default function ModeButton({label, toggleMode, color} : ModeButtonProps)
 	}
 
 	return (
-		<button className={`absolute left-28 w-[180px] h-9 ${buttonColors[color]} rounded-lg cursor-pointer`} onClick={toggleMode}>
+		<button 
+			className={`absolute left-28 w-[180px] h-9 ${buttonColors[color]} rounded-lg cursor-pointer hidden md:flex items-center justify-center`} 
+			onClick={toggleMode}
+		>
 			{label}
 		</button>
 	);

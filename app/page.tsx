@@ -67,27 +67,33 @@ export default function Home() {
     return (
         <>
             <div className='flex h-auto'>
-                <div className='relative flex flex-col flex-1 lg:w-2/3 sm:w-full'>
+                <div className='relative flex flex-col flex-1 lg:min-w-2/3 sm:w-full'>
                     <ProfileBanner />
-                        <div className='flex-1 flex flex-col px-5 justify-center w-[900px]'>
-                            <div 
-                                className={`mb-2 ${(!isChan || publicMode) ? '' : 'border-dashed border-2'}`}
+
+                    <div className='flex-1 flex flex-col px-5 justify-center'>
+                        <div 
+                            className={`mb-2 ${(!isChan || publicMode) ? '' : 'border-dashed border-2'}`}
+                        >
+                            <p
+                                style={{textIndent: '2em'}}
+                                contentEditable={isChan && !publicMode && isEditing}
+                                suppressContentEditableWarning={true}
+                                onDoubleClick={() => setIsEditing(true)}
+                                onBlur={handleBlur}
+                                className='text-2xl m-2'
                             >
-                                <p
-                                    style={{textIndent: '2em'}}
-                                    contentEditable={isChan && !publicMode && isEditing}
-                                    suppressContentEditableWarning={true}
-                                    onDoubleClick={() => setIsEditing(true)}
-                                    onBlur={handleBlur}
-                                    className='text-2xl m-2'
-                                >
-                                    {bio}
-                                </p>
-                            </div>    
-                        
-                            <p hidden={!isChan || publicMode}>Double click to edit!</p>
-                            <p hidden={!isChan || publicMode} className='absolute right-5 mt-[220px]'>Click outside the box to save!</p>
-                        </div>        
+                                {bio}
+                            </p>
+                        </div>    
+                    
+                        <p 
+                            hidden={!isChan || publicMode}
+                            className='flex justify-between'
+                        >
+                            Double click to edit!
+                            <span>Click outside the box to save!</span>
+                        </p>
+                    </div>        
                 </div>
 
                 <Experience />
