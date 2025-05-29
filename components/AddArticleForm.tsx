@@ -99,6 +99,16 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 					// update image state every time a file is chosen in the image input
 					function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 						const file = e.target.files?.[0];
+
+						// check if thumbanil is more than 4mb for Vercel
+						if (file && file.size > 4 * 1024 * 1024) {
+							e.target.value = ''; // clear input
+							setThumbnail(undefined);
+							setFieldValue('thumbnail', '');
+							setFieldError('thumbnail', '💔 File must be smaller than 4MB!');
+							return;
+						}
+
 						setThumbnail(file ?? undefined); // set thumbnail state to uploaded file
 
 						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
