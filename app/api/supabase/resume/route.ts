@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
         return new NextResponse(pdfBuffer, {
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename="BetancourtIvan.pdf"',
+                'Content-Disposition': 'attachment; filename="ChanelleJaeger.pdf"',
                 'Cache-Control': 'no-cache',
             }
         });
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         // upload resume to storage with the same name to replace it
         const { data, error } = await supabase.storage
             .from('thumbnails')
-            .update('BetancourtIvan.pdf', resumeBuffer, {
+            .update('ChanelleJaeger.pdf', resumeBuffer, {
                 contentType: 'application/pdf',
                 upsert: true
             });

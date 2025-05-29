@@ -42,7 +42,7 @@ export default function Resume() {
     // fetch and set url of resume with cache busting
     function getUpdatedResume() {
         const timestamp = Date.now(); // get current time 
-        setUrl(`${getURL('BetancourtIvan.pdf')}?v=${timestamp}`); // set the url with a unique parameter to bust cache
+        setUrl(`${getURL('ChanelleJaeger.pdf')}?v=${timestamp}`); // set the url with a unique parameter to bust cache
     }
 
     // get resume on mount
