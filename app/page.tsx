@@ -8,13 +8,66 @@ import { useAuthContext } from '@/contexts/AuthContext';
 
 export default function Home() {
     const [isEditing, setIsEditing] = useState<boolean>(false); // flag for whether chanelle is editing the bio
+    const [bio, setBio] = useState<string>(''); // state for bio content
+    const [loading, setLoading] = useState<boolean>(true); // loading state for bio
     const { publicMode } = useViewModeContext(); // get mode context for the editable bio
     const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
+
+    // Fetch bio content on mount
+    useEffect(() => {
+        fetch('/api/supabase/bio')
+            .then(res => res.json())
+            .then(data => {
+                setBio(data.content);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Error fetching bio:', err);
+                setLoading(false);
+            });
+    }, []);
+
+    const saveBio = async (content: string) => {
+        try {
+            const res = await fetch('/api/supabase/bio', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ content })
+            });
+
+            if (!res.ok) {
+                throw new Error(`There was an error replacing bio: ${res.status}`);
+            }
+        } catch (err) {
+            console.error('Error saving bio:', err);
+            alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${err}`);
+        }
+    };
+
+
+    const handleBlur = (e: React.FocusEvent<HTMLParagraphElement>) => {
+        const newContent = e.target.textContent || ''; // get the newly wrriten bio
+        if (newContent !== bio) {
+            setBio(newContent); // set the state
+            saveBio(newContent); // save it to supabase
+        }
+        setIsEditing(false);
+    };
+
+    if (loading) {
+        return (
+            <div className='flex justify-center items-center h-64'>
+                <div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200' />
+            </div>
+        );
+    }
 
     return (
         <>
             <div className='flex h-auto'>
-                <div className='flex flex-col lg:w-2/3 sm:w-full'>
+                <div className='relative flex flex-col lg:w-2/3 sm:w-full'>
                     <ProfileBanner />
 
                     <div className='flex-1 flex flex-col px-5 justify-center'>
@@ -26,14 +79,15 @@ export default function Home() {
                                 contentEditable={isChan && !publicMode && isEditing}
                                 suppressContentEditableWarning={true}
                                 onDoubleClick={() => setIsEditing(true)}
-                                onBlur={() => setIsEditing(false)}
+                                onBlur={handleBlur}
                                 className='text-2xl m-2'
                             >
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                {bio}
                             </p>
                         </div>    
                     
                         <p hidden={!isChan || publicMode}>Double click to edit!</p>
+                        <p hidden={!isChan || publicMode} className='absolute right-5 mt-[220px]'>Click outside the box to save!</p>
                     </div>
                 </div>
 
