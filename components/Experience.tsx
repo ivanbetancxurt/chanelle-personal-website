@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function Experience() {
 	return (
-		<div className='lg:flex lg:flex-col lg:flex-1 hidden items-center gap-12'>
+		<div className='pl-8 lg:flex lg:flex-col lg:flex-1 hidden items-center gap-12'>
 			<section className='flex flex-col items-center'>
 				<p className='text-2xl h-auto font-bold'>
 					Education

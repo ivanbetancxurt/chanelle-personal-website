@@ -58,7 +58,7 @@ export default function Home() {
 
     if (loading) {
         return (
-            <div className='flex justify-center items-center h-64'>
+            <div className='flex flex-1 justify-center items-center'>
                 <div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200' />
             </div>
         );
@@ -67,28 +67,27 @@ export default function Home() {
     return (
         <>
             <div className='flex h-auto'>
-                <div className='relative flex flex-col lg:w-2/3 sm:w-full'>
+                <div className='relative flex flex-col flex-1 lg:w-2/3 sm:w-full'>
                     <ProfileBanner />
-
-                    <div className='flex-1 flex flex-col px-5 justify-center'>
-                        <div 
-                            className={`mb-2 ${(!isChan || publicMode) ? '' : 'border-dashed border-2'}`}
-                        >
-                            <p
-                                style={{textIndent: '2em'}}
-                                contentEditable={isChan && !publicMode && isEditing}
-                                suppressContentEditableWarning={true}
-                                onDoubleClick={() => setIsEditing(true)}
-                                onBlur={handleBlur}
-                                className='text-2xl m-2'
+                        <div className='flex-1 flex flex-col px-5 justify-center w-[900px]'>
+                            <div 
+                                className={`mb-2 ${(!isChan || publicMode) ? '' : 'border-dashed border-2'}`}
                             >
-                                {bio}
-                            </p>
-                        </div>    
-                    
-                        <p hidden={!isChan || publicMode}>Double click to edit!</p>
-                        <p hidden={!isChan || publicMode} className='absolute right-5 mt-[220px]'>Click outside the box to save!</p>
-                    </div>
+                                <p
+                                    style={{textIndent: '2em'}}
+                                    contentEditable={isChan && !publicMode && isEditing}
+                                    suppressContentEditableWarning={true}
+                                    onDoubleClick={() => setIsEditing(true)}
+                                    onBlur={handleBlur}
+                                    className='text-2xl m-2'
+                                >
+                                    {bio}
+                                </p>
+                            </div>    
+                        
+                            <p hidden={!isChan || publicMode}>Double click to edit!</p>
+                            <p hidden={!isChan || publicMode} className='absolute right-5 mt-[220px]'>Click outside the box to save!</p>
+                        </div>        
                 </div>
 
                 <Experience />

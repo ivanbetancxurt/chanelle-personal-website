@@ -6,7 +6,7 @@ import { ReactTyped } from 'react-typed';
 export default function ProfileBanner() {
     return (
         <>
-            <div className='flex items-center mb-3'>
+            <div className='flex items-center mb-3 w-full'>
                 <div className='relative bg-[#f7f8fb] w-60 aspect-square rounded-full overflow-hidden items-center justify-center pt-13 
                     hidden md:flex shadow-2xl flex-shrink-0'
                 >
@@ -18,8 +18,9 @@ export default function ProfileBanner() {
                         style={{objectPosition: '50% 10%'}}
                     />
                 </div>
+                
                 <div className='flex flex-col h-[100px] px-8 justify-evenly'>
-                    <div className='font-bold text-6xl '>
+                    <div className='font-bold text-6xl'>
                         Hi, I'm Chanelle!
                     </div>
                     <div className='text-2xl hidden md:flex'>
@@ -36,9 +37,9 @@ export default function ProfileBanner() {
                             backSpeed={25}
                             loop={true}
                             backDelay={1250}
+                            className='w-full'
                         />
                     </div>
-                    
                 </div>
             </div>
         </>
