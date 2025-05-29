@@ -144,7 +144,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 								{errors.date && touched.date ? (<p className='absolute text-sm text-red-500 mt-[280px]'>💔 Date is required!</p>) : null}
 
 								<label htmlFor='thumbnail' className='mt-3'>Cover photo:</label>
-								<div className='relative'>
+								<div className='relative group'>
 									<input
 										id="thumbnail"
 										name="thumbnail"
@@ -159,7 +159,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 									<div className={`
 										flex items-center justify-center gap-2 p-3 border-2 border-dashed rounded-lg
 										${thumbnail ? 'border-green-400 bg-green-50' : 'border-gray-300 bg-gray-50'}
-										hover:border-amber-300 hover:bg-amber-50 transition-colors
+										group-hover:border-amber-300 group-hover:bg-amber-50 transition-colors
 										${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
 									`}>
 										<svg className='w-5 h-5 text-gray-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
