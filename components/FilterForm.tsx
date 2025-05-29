@@ -18,7 +18,7 @@ export default function ArticleFilterForm({ setSearch, setOrganization } : Artic
     const [appliedMessageHidden, setAppliedMessageHidden] = useState<boolean>(true); // filter confirmation showing flag
 
     return (
-        <div className='absolute left-0 top-8 text-2xl'>
+        <div className='absolute hidden lg:flex left-0 top-8 text-2xl'>
             <Formik
                 initialValues={initalValues}
                 onSubmit={values => {
