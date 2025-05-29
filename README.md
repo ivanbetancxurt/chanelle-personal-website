@@ -1,6 +1,6 @@
 # Chanelle's Personal Website
 
-For my first web project, I created this website for my girlfriend so she could have a central place to share her writing and prefessional experience. My aim was to create a simplistic yet bright design; Easy to navigate and nice to look at. My tech stack was simply [Next.js](https://nextjs.org/) and [Supabase](https://supabase.com/). The bulk of this project came from developing what I call will "admin mode". This mode gives Chanelle the ability to edit parts of the website. Using a secret token passed in by her as a search parameter, she can update her biography, add and delete pieces of writing, and update her resume.
+For my first web project, I created a website for my girlfriend so she could have a central place to share her writing and prefessional experience. My aim was to create a simplistic yet bright design; Easy to navigate and nice to look at. My tech stack was simply [Next.js](https://nextjs.org/) and [Supabase](https://supabase.com/). The bulk of this project came from developing what I call will "admin mode". This mode gives Chanelle the ability to edit parts of the website. Using a secret token passed in by her as a search parameter, she can update her biography, add and delete pieces of writing, and update her resume.
 
 ## Pages and Features
 
