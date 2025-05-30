@@ -17,10 +17,11 @@ import { useArticles } from '@/hooks/useArticles';
 export default function WritingPage() {
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
-    const { publicMode } = useViewModeContext(); // get mode context for the add article button
-    const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for add article button
     const [addedMessageHidden, setAddedMessageHidden] = useState<boolean>(true); // flag for whether 'article added' message shows
+    
+    const { publicMode } = useViewModeContext(); // get mode context for the add article button
+    const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
 
     const { articles, isLoading, addArticle, deleteArticle } = useArticles(); // get articles, loading state, and add/delete functions from custom hook
     {/*

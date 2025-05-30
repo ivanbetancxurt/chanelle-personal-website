@@ -7,9 +7,10 @@ const fetcher = (url: string) => fetch(url).then(res => {
 
 // custom hook to fetch and update bio
 export function useBio() {
-    const { data, error, isLoading } = useSWR('/api/supabase/bio', fetcher, {
+    const { data, error, isLoading, isValidating } = useSWR('/api/supabase/bio', fetcher, {
         revalidateOnFocus: true, // revalidate when user returns to tab
         revalidateOnReconnect: true,
+        revalidateOnMount: true,
         refreshInterval: 0, // don't auto-refresh, only on manual trigger
     });
 
@@ -38,7 +39,7 @@ export function useBio() {
 
     return {
         bio: data?.content || '',
-        isLoading,
+        isLoading: isLoading || isValidating,
         error,
         updateBio
     };

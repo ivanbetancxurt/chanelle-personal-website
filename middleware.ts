@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
     if (key === process.env.CHANELLES_KEY) { // if that search param matches chanelle's key...
         url.searchParams.delete('key'); // remove it from the URL so it looks clean
 
-        const response = NextResponse.redirect(url) // build a new response and rewrite the URL without redirecting
+        const response = NextResponse.redirect(url) // build a new response and redirect to the URL
         response.cookies.set('isChan', '1', { // set isChan cookie to 1
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60,

@@ -8,9 +8,10 @@ const fetcher = (url: string) => fetch(url).then(res => {
 });
 
 export function useArticles() {
-    const { data, error, isLoading } = useSWR('/api/supabase/articles', fetcher, {
+    const { data, error, isLoading, isValidating } = useSWR('/api/supabase/articles', fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
+        revalidateOnMount: true,
         refreshInterval: 0,
     });
 
@@ -68,7 +69,7 @@ export function useArticles() {
 
     return {
         articles,
-        isLoading,
+        isLoading: isLoading || isValidating,
         error,
         addArticle,
         deleteArticle
