@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             
             if (response.ok) {
                 setIsChan(false); // update context state
-                //window.location.reload(); // reload page
+                window.location.reload(); // reload page
             } else {
                 console.error('Failed to delete cookie');
             }
