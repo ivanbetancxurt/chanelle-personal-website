@@ -7,8 +7,13 @@ const fetcher = (url: string) => fetch(url).then(res => {
     return res.json();
 });
 
-export function useArticles() {
+interface UseArticlesOptions {
+    fallbackData?: Articles[];
+}
+
+export function useArticles({ fallbackData }: UseArticlesOptions = {}) {
     const { data, error, isLoading, isValidating } = useSWR('/api/supabase/articles', fetcher, {
+        fallbackData,
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
         revalidateOnMount: true,

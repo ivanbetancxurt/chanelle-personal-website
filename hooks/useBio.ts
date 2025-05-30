@@ -5,15 +5,20 @@ const fetcher = (url: string) => fetch(url).then(res => {
     return res.json();
 });
 
+interface UseBioOptions {
+    fallbackData?: { content: string };
+}
+
 // custom hook to fetch and update bio
-export function useBio() {
+export function useBio({ fallbackData }: UseBioOptions = {}) {
     const { data, error, isLoading, isValidating } = useSWR('/api/supabase/bio', fetcher, {
+        fallbackData,
         revalidateOnFocus: true, // revalidate when user returns to tab
         revalidateOnReconnect: true,
         revalidateOnMount: true,
         refreshInterval: 0, // don't auto-refresh, only on manual trigger
     });
-
+    
     const updateBio = async (newContent: string) => {
         try {
             // optimistic update
@@ -38,7 +43,7 @@ export function useBio() {
     };
 
     return {
-        bio: data?.content || '',
+        bio: data?.content ?? '',
         isLoading: isLoading || isValidating,
         error,
         updateBio
