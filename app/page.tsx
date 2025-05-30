@@ -7,5 +7,7 @@ export default async function Home() {
   const bioRecord = await prisma.bio.findFirst();
   const initialBio = bioRecord?.content ?? '';
 
+  console.log(`[server] app/page.tsx → initialBio =`, JSON.stringify(initialBio));
+
   return <ClientHome initialBio={initialBio} />;
 }

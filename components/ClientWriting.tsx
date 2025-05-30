@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Articles } from '@/lib/generated/prisma';
 import ArticleList from '@/components/ArticleList';
 import ArticleFilterForm from '@/components/FilterForm';
@@ -23,6 +23,13 @@ export default function ClientWriting({ initialArticles }: ClientWritingPageProp
     const { publicMode } = useViewModeContext(); // get mode context for the add article button
     const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const { articles, isLoading, addArticle, deleteArticle } = useArticles({ fallbackData: initialArticles }); // get articles, loading state, and update/delete functions from custom hook
+
+    useEffect(() => {
+        console.log(
+          `[client] ClientWriting → fallback length=${initialArticles.length}, 
+           SWR articles length=${articles.length}, isLoading=${isLoading}`
+        );
+      }, [initialArticles, articles, isLoading]);
 
     return (
         <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>

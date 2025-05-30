@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Experience from '@/components/Experience';
 import ProfileBanner from '@/components/ProfileBanner';
 import { useViewModeContext } from '@/contexts/ViewModeContext';
@@ -17,6 +17,13 @@ export default function ClientHome({ initialBio }: ClientHomeProps) {
     const { publicMode } = useViewModeContext(); // get mode context for the editable bio
     const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const { bio, isLoading, updateBio } = useBio({ fallbackData: { content: initialBio } }); // get bio, loading state, and update function from custom hook
+
+    useEffect(() => {
+        console.log(
+          `[client] ClientHome → initialBio: "${initialBio}", 
+           SWR data: "${bio}", isLoading=${isLoading}`
+        );
+      }, [initialBio, bio, isLoading]);
 
     const handleBlur = async (e: React.FocusEvent<HTMLParagraphElement>) => {
         const newContent = e.target.textContent || ''; // get the newly wrriten bio
