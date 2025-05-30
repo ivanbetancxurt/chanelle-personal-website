@@ -95,7 +95,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 					handleSubmit(values, { resetForm, setSubmitting }); // submit the article
 				}}
 			>
-				{({ isSubmitting, errors, touched, isValid, setFieldError, setFieldTouched, setFieldValue }) => {
+				{({ isSubmitting, errors, touched, isValid, setFieldTouched, setFieldValue }) => {
 					// update image state every time a file is chosen in the image input
 					function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 						const file = e.target.files?.[0];
@@ -103,34 +103,14 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 						// check if thumbanil is more than 4mb for Vercel
 						if (file && file.size > 4 * 1024 * 1024) {
 							e.target.value = ''; // clear input
+							alert('Sorry bae, your cover art needs to be smaller than 4mb 💔 You can make it smaller here: https://imagecompressor.com/');
 							setThumbnail(undefined);
 							setFieldValue('thumbnail', '');
-							setFieldError('thumbnail', '💔 File must be smaller than 4MB!');
 							return;
 						}
 
 						setThumbnail(file ?? undefined); // set thumbnail state to uploaded file
-
 						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
-						if (file) {
-							setFieldValue('thumbnail', file.name); // tell formik the new value of the input
-							setFieldError('thumbnail', undefined); // image has been uploaded so there are no error
-						} else {
-							setFieldValue('thumbnail', ''); // tell formik there is no uploaded file
-							setFieldError('thumbnail', '💔 Cover photo is required!'); // set error message
-						}
-					}
-
-					// set formik helpers on click and blur of thumbnail input
-					function handleClickAndBlur() {
-						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
-
-						// set error if chanelle doesn't select a file
-						if (!thumbnail) {
-							setFieldError('thumbnail', '💔 Cover photo is required!');
-						} else {
-							setFieldError('thumbnail', undefined);
-						}
 					}
 
 					return (
@@ -161,8 +141,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 										type="file"
 										accept="image/*"
 										disabled={isSubmitting}
-										onClick={handleClickAndBlur}
-										onBlur={handleClickAndBlur}
+										onClick={() => setFieldTouched('thumbnail', true)}
 										onChange={handleChange}
 										className='bg-blue-400 absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed'
 									/>
