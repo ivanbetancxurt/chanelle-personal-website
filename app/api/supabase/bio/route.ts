@@ -10,9 +10,10 @@ export async function GET() {
         return NextResponse.json({ content });
     } catch(err) {
         console.error('GET /api/supabase/bio error: ', err); // log the error...
-        return NextResponse.json({ // ...and return it as a json
-            error: err || 'Unknown error' 
-        });
+        return NextResponse.json(
+            { error: (err as Error).message || 'Unknown error' },
+            { status: 500 }
+        );
     }
 }
 
