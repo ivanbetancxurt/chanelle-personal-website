@@ -11,7 +11,10 @@ export function middleware(request: NextRequest) {
         const response = NextResponse.rewrite(url) // build a new response and rewrite the URL without redirecting
         response.cookies.set('isChan', '1', { // set isChan cookie to 1
             httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60
+            maxAge: 7 * 24 * 60 * 60,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/'
         })
         return response;
     }
