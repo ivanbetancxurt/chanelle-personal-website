@@ -6,7 +6,6 @@ interface AuthContextType {
     isChan: boolean;
     setIsChan: (value: boolean) => void;
     logout: () => Promise<void>;
-    refreshAuthStatus: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,38 +22,15 @@ export function useAuthContext() {
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [isChan, setIsChan] = useState<boolean>(false);
 
-    // check auth status
-    const refreshAuthStatus = async () => {
-        try {
-            const res = await fetch('/api/server/amChan');
-            const { isChan: isAuth } = await res.json();
-            setIsChan(isAuth);
-        } catch (err) {
-            console.error('Error checking auth status:', err);
-            setIsChan(false);
-        }
-    };
-
-    // check auth status on mount and listen for URL changes
+    // set isChan flag by getting the state of the cookie via api
     useEffect(() => {
-        refreshAuthStatus(); // initial auth check
-
-        // listen for URL changes that might include the key parameter
-        const handleUrlChange = () => {
-            const params = new URLSearchParams(window.location.search);
-            if (params.has('key')) {
-                setTimeout(() => {
-                    refreshAuthStatus();
-                }, 100);
-            }
-        };
-
-        handleUrlChange(); // check current URL on mount
-        window.addEventListener('popstate', handleUrlChange); // listen for back/forward navigation
-        
-        return () => {
-            window.removeEventListener('popstate', handleUrlChange);
-        };
+        fetch('/api/server/amChan')
+            .then(res => res.json())
+            .then(({ isChan }) => setIsChan(isChan))
+            .catch(err => {
+                console.error(err);
+                setIsChan(false);
+            });
     }, []);
 
     // delete chanelle's cookie
@@ -65,8 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             });
             
             if (response.ok) {
-                setIsChan(false); // update context state
-                window.location.reload(); // reload page
+                setIsChan(false); // Update context state
             } else {
                 console.error('Failed to delete cookie');
             }
@@ -76,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ isChan, setIsChan, logout, refreshAuthStatus }}>
+        <AuthContext.Provider value={{ isChan, setIsChan, logout }}>
             {children}
         </AuthContext.Provider>
     );
