@@ -3,13 +3,13 @@ import Article from './Article';
 
 interface ArticleListProps {
     articles: Articles[],
-    setArticles: React.Dispatch<React.SetStateAction<Articles[]>>;
+    onArticleDeleted: (link: string) => Promise<void>;
     search: string,
     organization: string,
     isChan: boolean
 }
 
-export default function ArticleList({ articles, setArticles, search, organization, isChan }: ArticleListProps) {
+export default function ArticleList({ articles, onArticleDeleted, search, organization, isChan }: ArticleListProps) {
     // get aticles that match filter criteria
     const filteredArticles = articles.filter(article => 
         (article.title.includes(search) || article.title.toLowerCase().includes(search)) && 
@@ -23,9 +23,7 @@ export default function ArticleList({ articles, setArticles, search, organizatio
                     <Article 
                         article={article} 
                         isChan={isChan} 
-                        onArticleDeleted={(link) => {
-                            setArticles(prevArticles => prevArticles.filter(article => article.link !== link)); // optimistically delete article
-                        }} 
+                        onArticleDeleted={onArticleDeleted} 
                         key={i} 
                     />
                 ))

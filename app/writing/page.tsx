@@ -10,19 +10,20 @@ import AddArticleForm from '@/components/AddArticleForm';
 import { sortArticles } from '@/lib/utils';
 import { FaPlus } from 'react-icons/fa';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useArticles } from '@/hooks/useArticles';
 
 // todo: make responsive
 
 export default function WritingPage() {
-    const [articles, setArticles] = useState<Articles[]>([]); // state for articles
     const [search, setSearch] = useState<string>(''); // article search state
     const [organization, setOrganization] = useState<string>('All'); // organization choice state
     const { publicMode } = useViewModeContext(); // get mode context for the add article button
     const { isChan } = useAuthContext(); // get chanelle's cookie state from auth context
     const [addArticlePressed, setAddArticlePressed] = useState<boolean>(false); // pressed state for add article button
-    const [loading, setLoading] = useState<boolean>(true); // loading state for article list
     const [addedMessageHidden, setAddedMessageHidden] = useState<boolean>(true); // flag for whether 'article added' message shows
 
+    const { articles, isLoading, addArticle, deleteArticle } = useArticles(); // get articles, loading state, and add/delete functions from custom hook
+    {/*
     // fetch articles on component mount
     useEffect(() => {
         fetch('/api/supabase/articles')
@@ -40,17 +41,18 @@ export default function WritingPage() {
                 console.error(err);
             });
     }, []);
+    */}
 
     return (
         <>
             <div className='relative flex w-full flex-1 justify-center overflow-hidden h-full'>
                 <div className='flex absolute top-0 bottom-0 min-w-200 justify-center'>
-                    {loading ? (
+                    {isLoading ? (
                         <div className='animate-spin rounded-full h-13 w-13 border-9 border-gray-300 border-t-amber-200 mt-[200px]' />
                     ) : (
                         <ArticleList 
                             articles={articles} 
-                            setArticles={setArticles}
+                            onArticleDeleted={deleteArticle}
                             search={search} 
                             organization={organization} 
                             isChan={isChan} 
@@ -70,7 +72,8 @@ export default function WritingPage() {
                 </button>
 
                 {addArticlePressed && !publicMode && (
-                    <AddArticleForm onArticleAdded={(article) => {
+                    <AddArticleForm onArticleAdded={async (article) => {
+                        {/*
                          // optimistically add the article to the list
                         const optimisticArticles = [...articles, article];
                         setArticles(sortArticles(optimisticArticles)); 
@@ -82,6 +85,21 @@ export default function WritingPage() {
                         setTimeout(() => {
                             setAddedMessageHidden(true);
                         }, 3000);
+                        */}
+
+                        try {
+                            await addArticle(article); // optimistically update articles
+                            setAddArticlePressed(false);
+
+                            // display 'Article applied!' message for 3 seconds after apply article is submitted
+                            setAddedMessageHidden(false);
+                            setTimeout(() => {
+                                setAddedMessageHidden(true);
+                            }, 3000);
+                        } catch (err) {
+                            console.error('Error adding article:', err);
+                            alert(`Ah shi, sorry bae this isn't your fault! Take a picture of this for me and I'll try to fix it ASAP! <3 ~~~ ${err}`);
+                        }
                     }} />
                 )}
 
