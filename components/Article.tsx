@@ -14,7 +14,7 @@ export default function Article({ article, isChan, onArticleDeleted }: { article
         e.stopPropagation(); // prevent event bubbling
     
         // get confirmation from chanelle
-        if (!confirm('Are you sure you want to delete this article?')) {
+        if (!confirm('Bae! Are you sure you want to delete this article?')) {
             return;
         } 
         
