@@ -111,6 +111,7 @@ export default function AddArticleForm({ onArticleAdded }: { onArticleAdded: (ar
 
 						setThumbnail(file ?? undefined); // set thumbnail state to uploaded file
 						setFieldTouched('thumbnail', true); // tell formik that thumbnail input has been touched
+						setFieldValue('thumbnail', file ? file.name : ''); // update Formik's value
 					}
 
 					return (
