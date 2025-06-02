@@ -30,7 +30,7 @@ export default async function RootLayout({
                         <header className='flex justify-center pt-5 h-auto'>
                             <NavBar />
                         </header>
-                        <main className='flex flex-1 h-full py-9 px-15'>
+                        <main className='flex flex-1 h-full py-7 px-15'>
                             {children}
                         </main>
                         <footer className='flex justify-center w-full h-auto'>

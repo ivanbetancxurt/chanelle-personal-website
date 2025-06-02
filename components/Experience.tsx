@@ -5,12 +5,12 @@ import Image from 'next/image';
 
 export default function Experience() {
 	return (
-		<div className='pl-8 lg:flex lg:flex-col lg:flex-1 hidden items-center gap-12'>
+		<div className='pl-8 lg:flex lg:flex-col lg:flex-1 hidden items-center gap-6'>
 			<section className='flex flex-col items-center'>
 				<p className='text-2xl h-auto font-bold'>
 					Education
 				</p>
-				<div className='flex justify-evenly py-5 h-auto'>
+				<div className='flex justify-evenly py-3 h-auto'>
 					<a href='https://www.amherst.edu/' target='_blank' rel='noopener noreferrer'>
 						<Image 
 							src='https://ceksxnfsszwkadypmabe.supabase.co/storage/v1/object/public/thumbnails//amherst-college-two-line-seal.webp' 	
@@ -36,7 +36,16 @@ export default function Experience() {
 				<p className='text-2xl h-auto font-bold'>
 					Experience
 				</p>
-				<div className='flex flex-col flex-1 pt-5 gap-7 items-center'>
+				<div className='flex flex-col flex-1 gap-2 items-center'>
+					<a href='https://www.nm.gov/' target='_blank' rel='noopener noreferrer'>
+						<Image
+							src='https://ceksxnfsszwkadypmabe.supabase.co/storage/v1/object/public/thumbnails//state-of-new-mexico-seal.png'
+							alt='State of New Mexico Seal'
+							width={400} 
+							height={250}
+							className='hover:bg-gray-200 rounded-2xl p-2' 
+						/>
+					</a>
 					<a href='https://www.lanl.gov/' target='_blank' rel='noopener noreferrer'>
 						<Image 
 							src='https://ceksxnfsszwkadypmabe.supabase.co/storage/v1/object/public/thumbnails//lanl-logo.webp' 
